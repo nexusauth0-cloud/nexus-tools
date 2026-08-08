@@ -29,6 +29,9 @@ import { manifest as currencyConverterManifest } from "./currency-converter/mani
 import { manifest as emailHeaderAnalyzerManifest } from "./email-header-analyzer/manifest"
 import { manifest as svgOptimizerManifest } from "./svg-optimizer/manifest"
 import { manifest as colorExtractorManifest } from "./color-extractor/manifest"
+import { manifest as jwtDecoderManifest } from "./jwt-decoder/manifest"
+import { manifest as timestampConverterManifest } from "./timestamp-converter/manifest"
+import { manifest as colorConverterManifest } from "./color-converter/manifest"
 
 import ImageCompressorTool from "./image-compressor/tool"
 import ImageResizerTool from "./image-resizer/tool"
@@ -59,6 +62,9 @@ import CurrencyConverterTool from "./currency-converter/tool"
 import EmailHeaderAnalyzerTool from "./email-header-analyzer/tool"
 import SvgOptimizerTool from "./svg-optimizer/tool"
 import ColorExtractorTool from "./color-extractor/tool"
+import JwtDecoderTool from "./jwt-decoder/tool"
+import TimestampConverterTool from "./timestamp-converter/tool"
+import ColorConverterTool from "./color-converter/tool"
 
 export const registeredToolManifests: ToolManifest[] = [
   imageCompressorManifest,
@@ -90,6 +96,9 @@ export const registeredToolManifests: ToolManifest[] = [
   emailHeaderAnalyzerManifest,
   svgOptimizerManifest,
   colorExtractorManifest,
+  jwtDecoderManifest,
+  timestampConverterManifest,
+  colorConverterManifest,
 ]
 
 export const registeredToolComponents: Record<string, ComponentType<{ className?: string }>> = {
@@ -122,4 +131,7 @@ export const registeredToolComponents: Record<string, ComponentType<{ className?
   "email-header-analyzer": EmailHeaderAnalyzerTool,
   "svg-optimizer": SvgOptimizerTool,
   "color-extractor": ColorExtractorTool,
+  "jwt-decoder": JwtDecoderTool,
+  "timestamp-converter": TimestampConverterTool,
+  "color-converter": ColorConverterTool,
 }
