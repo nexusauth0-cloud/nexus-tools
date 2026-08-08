@@ -73,6 +73,8 @@ export const toolManifestSchema = z.object({
   gradient: z.string().min(1).default("from-gold/30 to-gold-2/5"),
   /** Optional explicit related-tool slugs. When absent, relations are computed. */
   related: z.array(z.string().min(1)).optional(),
+  /** Declared capabilities this tool delivers (e.g. "file input", "image preview"). */
+  capabilities: z.array(z.string().min(1)).optional(),
   screenshots: z.array(z.string()).optional(),
   faqs: z.array(toolFaqSchema).optional(),
   seo: toolSeoSchema,

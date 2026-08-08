@@ -25,6 +25,13 @@ export const manifest = defineToolManifest({
   estimatedProcessing: "under 2s",
   supportedDevices: ["desktop", "tablet", "mobile"],
   supportedBrowsers: ["chrome", "firefox", "safari", "edge"],
+  capabilities: [
+    "file input",
+    "image preview",
+    "lossy and lossless output",
+    "download",
+    "client-side processing",
+  ],
 
   faqs: [
     {

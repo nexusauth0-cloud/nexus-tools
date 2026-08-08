@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import { ArrowRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Segmented, type SegmentedOption } from "@/components/tool/inputs/segmented"
 import { ErrorAlert } from "@/components/tool/outputs/error-alert"
@@ -14,16 +15,15 @@ import { QualitySlider } from "@/components/tool/image/quality-slider"
 import { useTool } from "@/lib/tool-engine"
 import {
   IMAGE_FORMAT_INFO,
-  formatFileSize,
   readImageDimensions,
   validateImageBytes,
   type ImageFormat,
 } from "@/lib/image"
 import { decodeImageFile, encodeCanvas, createCanvas } from "@/lib/image/browser"
-import { imageCompressorEngine, COMPRESS_FORMATS, type CompressFormat } from "./engine"
+import { imageConverterEngine, CONVERT_FORMATS, type ConvertFormat } from "./engine"
 import { manifest } from "./manifest"
 
-const FORMAT_OPTIONS: SegmentedOption<CompressFormat>[] = COMPRESS_FORMATS.map((format) => ({
+const FORMAT_OPTIONS: SegmentedOption<ConvertFormat>[] = CONVERT_FORMATS.map((format) => ({
   value: format,
   label: IMAGE_FORMAT_INFO[format].label,
 }))
@@ -41,15 +41,15 @@ interface OutputImage {
   filename: string
 }
 
-export default function ImageCompressor() {
+export default function ImageConverter() {
   const [source, setSource] = useState<SourceImage | null>(null)
-  const [format, setFormat] = useState<CompressFormat>("webp")
-  const [quality, setQuality] = useState(80)
+  const [to, setTo] = useState<ConvertFormat>("webp")
+  const [quality, setQuality] = useState(92)
   const [busy, setBusy] = useState(false)
   const [localError, setLocalError] = useState<string | null>(null)
   const [output, setOutput] = useState<OutputImage | null>(null)
 
-  const { status, result, error, run, reset } = useTool(imageCompressorEngine)
+  const { status, result, error, run, reset } = useTool(imageConverterEngine)
 
   const handleSelect = async (file: File) => {
     setLocalError(null)
@@ -67,8 +67,6 @@ export default function ImageCompressor() {
         return
       }
       setSource({ file, bytes, format: dims.format, width: dims.width, height: dims.height })
-      // Default the output format to the source format (only lossy keeps quality control).
-      setFormat(dims.format === "png" ? "png" : "webp")
     } catch {
       setLocalError("This file couldn't be read.")
     }
@@ -81,7 +79,7 @@ export default function ImageCompressor() {
     setLocalError(null)
   }
 
-  const handleCompress = async () => {
+  const handleConvert = async () => {
     if (!source) return
     setLocalError(null)
     setBusy(true)
@@ -93,12 +91,12 @@ export default function ImageCompressor() {
       if (!context) throw new Error("Canvas isn't available in this browser.")
       context.imageSmoothingQuality = "high"
       context.drawImage(decoded.source, 0, 0, source.width, source.height)
-      const blob = await encodeCanvas(canvas, format, quality)
+      const blob = await encodeCanvas(canvas, to, quality)
 
       await run({
         bytes: source.bytes,
         bytesLength: source.bytes.length,
-        format,
+        to,
         quality,
         outputBytes: blob.size,
         outputWidth: source.width,
@@ -108,10 +106,10 @@ export default function ImageCompressor() {
       const base = source.file.name.replace(/\.[^.]+$/, "")
       setOutput({
         blob,
-        filename: `${base}-compressed.${IMAGE_FORMAT_INFO[format].extension}`,
+        filename: `${base}.${IMAGE_FORMAT_INFO[to].extension}`,
       })
     } catch (caught) {
-      setLocalError(caught instanceof Error ? caught.message : "Compression failed.")
+      setLocalError(caught instanceof Error ? caught.message : "Conversion failed.")
     } finally {
       decoded?.close()
       setBusy(false)
@@ -120,21 +118,20 @@ export default function ImageCompressor() {
 
   const handleReset = () => {
     handleClear()
-    setFormat("webp")
-    setQuality(80)
+    setTo("webp")
+    setQuality(92)
   }
 
   const busyNow = busy || status === "processing" || status === "validating"
   const errorId = `${manifest.slug}-error`
   const summary = result?.output
-
-  const savings = summary ? (summary.grew ? null : summary.bytesReduced) : null
+  const sameFormat = source && source.format === to
 
   return (
     <div className="grid gap-6 lg:grid-cols-2">
       <div className="flex flex-col gap-5">
         <FileDrop
-          label="Drop an image to compress"
+          label="Drop an image to convert"
           onSelect={(file) => void handleSelect(file)}
           onClear={source ? handleClear : undefined}
           disabled={busyNow}
@@ -149,28 +146,36 @@ export default function ImageCompressor() {
             />
             <ImagePreview file={source.file} alt={`Original ${source.file.name}`} />
 
-            <Segmented
-              label="Output format"
-              options={FORMAT_OPTIONS}
-              value={format}
-              onChange={setFormat}
-            />
-            {format === "png" ? (
+            <div className="flex flex-col gap-2">
+              <Segmented label="Convert to" options={FORMAT_OPTIONS} value={to} onChange={setTo} />
+              {sameFormat ? (
+                <p className="text-xs text-muted-foreground">
+                  The file is already {IMAGE_FORMAT_INFO[to].label} — converting will re-encode it.
+                </p>
+              ) : (
+                <p className="flex items-center gap-1 text-xs text-muted-foreground">
+                  <span>{IMAGE_FORMAT_INFO[source.format].label}</span>
+                  <ArrowRight className="h-3 w-3" />
+                  <span>{IMAGE_FORMAT_INFO[to].label}</span>
+                </p>
+              )}
+            </div>
+
+            {to === "png" ? (
               <p className="text-xs text-muted-foreground">
-                PNG is lossless — re-encoding it won&apos;t reduce quality, but compression only
-                helps with lossy formats (JPEG, WebP).
+                PNG output is lossless — the quality control has no effect.
               </p>
             ) : (
               <QualitySlider
-                label={`${IMAGE_FORMAT_INFO[format].label} quality`}
+                label={`${IMAGE_FORMAT_INFO[to].label} quality`}
                 value={quality}
                 onChange={setQuality}
               />
             )}
 
             <div className="flex items-center gap-3">
-              <Button onClick={() => void handleCompress()} disabled={busyNow || !source}>
-                {busyNow ? "Compressing…" : "Compress image"}
+              <Button onClick={() => void handleConvert()} disabled={busyNow || !source}>
+                {busyNow ? "Converting…" : "Convert image"}
               </Button>
               <ResetButton onClick={handleReset} disabled={busyNow || (!source && !result)} />
             </div>
@@ -185,26 +190,22 @@ export default function ImageCompressor() {
                 {localError}
               </p>
             ) : null}
+
+            <p className="text-xs text-muted-foreground">
+              Metadata (EXIF) isn&apos;t carried over during conversion — the output is a fresh
+              re-encode of the visible pixels.
+            </p>
           </>
         ) : null}
       </div>
 
       {output && summary ? (
         <div className="flex flex-col gap-3">
-          <OutputImageCard blob={output.blob} filename={output.filename} />
-          {summary.grew ? (
-            <p className="text-sm text-amber-600 dark:text-amber-500">
-              This re-encode is actually larger than the original (
-              {formatFileSize(summary.sourceBytes)} → {formatFileSize(summary.outputBytes)}). Try a
-              lower quality or a different format.
-            </p>
-          ) : savings !== null ? (
-            <p className="text-xs text-muted-foreground">
-              Saved {formatFileSize(savings)} (
-              {summary.sourceBytes > 0 ? Math.round((savings / summary.sourceBytes) * 100) : 0}
-              %) · measured from the actual output file.
-            </p>
-          ) : null}
+          <OutputImageCard
+            blob={output.blob}
+            filename={output.filename}
+            meta={`${summary.from.toUpperCase()} → ${summary.to.toUpperCase()}`}
+          />
         </div>
       ) : null}
     </div>

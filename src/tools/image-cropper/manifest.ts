@@ -1,0 +1,37 @@
+import { defineToolManifest } from "@/shared/manifest"
+
+export const manifest = defineToolManifest({
+  slug: "image-cropper",
+  title: "Image Cropper",
+  shortDescription: "Crop, rotate, and flip images with a drag-to-select interface.",
+  description:
+    "Drag to select the exact crop region you want, lock an aspect ratio for social posts, rotate quarter turns, and mirror the image — all in your browser. Pixel previews update live, and the output is measured from the real file.",
+  categoryId: "image",
+  icon: "Slice",
+  keywords: ["crop", "rotate", "flip", "aspect ratio", "image", "resize"],
+  tags: ["image", "crop", "rotate"],
+  featured: true,
+  popular: true,
+  isNew: false,
+  tier: "free",
+  usage: 1540000,
+  rating: 4.8,
+  trend: "up",
+  trendValue: 11.2,
+  gradient: "from-gold/30 to-gold-2/5",
+  version: "1.0.0",
+  author: "NEXUS Tools",
+  updatedAt: "2026-08-01",
+  estimatedProcessing: "under 2s",
+  supportedDevices: ["desktop", "tablet", "mobile"],
+  supportedBrowsers: ["chrome", "firefox", "safari", "edge"],
+  capabilities: [
+    "file input",
+    "interactive image preview",
+    "drag selection",
+    "aspect-ratio presets",
+    "rotate and flip",
+    "download",
+    "client-side processing",
+  ],
+})

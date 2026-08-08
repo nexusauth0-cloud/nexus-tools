@@ -2,6 +2,9 @@ import type { ComponentType } from "react"
 import type { ToolManifest } from "@/shared/manifest"
 import { manifest as imageCompressorManifest } from "./image-compressor/manifest"
 import { manifest as imageResizerManifest } from "./image-resizer/manifest"
+import { manifest as imageConverterManifest } from "./image-converter/manifest"
+import { manifest as imageCropperManifest } from "./image-cropper/manifest"
+import { manifest as imageMetadataManifest } from "./image-metadata/manifest"
 import { manifest as backgroundRemoverManifest } from "./background-remover/manifest"
 import { manifest as pngWebpConverterManifest } from "./png-webp-converter/manifest"
 import { manifest as wordCounterManifest } from "./word-counter/manifest"
@@ -35,6 +38,9 @@ import { manifest as colorConverterManifest } from "./color-converter/manifest"
 
 import ImageCompressorTool from "./image-compressor/tool"
 import ImageResizerTool from "./image-resizer/tool"
+import ImageConverterTool from "./image-converter/tool"
+import ImageCropperTool from "./image-cropper/tool"
+import ImageMetadataTool from "./image-metadata/tool"
 import BackgroundRemoverTool from "./background-remover/tool"
 import PngWebpConverterTool from "./png-webp-converter/tool"
 import WordCounterTool from "./word-counter/tool"
@@ -69,6 +75,9 @@ import ColorConverterTool from "./color-converter/tool"
 export const registeredToolManifests: ToolManifest[] = [
   imageCompressorManifest,
   imageResizerManifest,
+  imageConverterManifest,
+  imageCropperManifest,
+  imageMetadataManifest,
   backgroundRemoverManifest,
   pngWebpConverterManifest,
   wordCounterManifest,
@@ -104,6 +113,9 @@ export const registeredToolManifests: ToolManifest[] = [
 export const registeredToolComponents: Record<string, ComponentType<{ className?: string }>> = {
   "image-compressor": ImageCompressorTool,
   "image-resizer": ImageResizerTool,
+  "image-converter": ImageConverterTool,
+  "image-cropper": ImageCropperTool,
+  "image-metadata": ImageMetadataTool,
   "background-remover": BackgroundRemoverTool,
   "png-webp-converter": PngWebpConverterTool,
   "word-counter": WordCounterTool,
