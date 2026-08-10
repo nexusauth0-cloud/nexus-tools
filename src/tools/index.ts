@@ -35,6 +35,11 @@ import { manifest as colorExtractorManifest } from "./color-extractor/manifest"
 import { manifest as jwtDecoderManifest } from "./jwt-decoder/manifest"
 import { manifest as timestampConverterManifest } from "./timestamp-converter/manifest"
 import { manifest as colorConverterManifest } from "./color-converter/manifest"
+import { manifest as pdfMetadataManifest } from "./pdf-metadata/manifest"
+import { manifest as pdfPageCounterManifest } from "./pdf-page-counter/manifest"
+import { manifest as pdfToTextManifest } from "./pdf-to-text/manifest"
+import { manifest as textToPdfManifest } from "./text-to-pdf/manifest"
+import { manifest as fileChecksumManifest } from "./file-checksum/manifest"
 
 import ImageCompressorTool from "./image-compressor/tool"
 import ImageResizerTool from "./image-resizer/tool"
@@ -71,6 +76,11 @@ import ColorExtractorTool from "./color-extractor/tool"
 import JwtDecoderTool from "./jwt-decoder/tool"
 import TimestampConverterTool from "./timestamp-converter/tool"
 import ColorConverterTool from "./color-converter/tool"
+import PdfMetadataTool from "./pdf-metadata/tool"
+import PdfPageCounterTool from "./pdf-page-counter/tool"
+import PdfToTextTool from "./pdf-to-text/tool"
+import TextToPdfTool from "./text-to-pdf/tool"
+import FileChecksumTool from "./file-checksum/tool"
 
 export const registeredToolManifests: ToolManifest[] = [
   imageCompressorManifest,
@@ -108,6 +118,11 @@ export const registeredToolManifests: ToolManifest[] = [
   jwtDecoderManifest,
   timestampConverterManifest,
   colorConverterManifest,
+  pdfMetadataManifest,
+  pdfPageCounterManifest,
+  pdfToTextManifest,
+  textToPdfManifest,
+  fileChecksumManifest,
 ]
 
 export const registeredToolComponents: Record<string, ComponentType<{ className?: string }>> = {
@@ -146,4 +161,9 @@ export const registeredToolComponents: Record<string, ComponentType<{ className?
   "jwt-decoder": JwtDecoderTool,
   "timestamp-converter": TimestampConverterTool,
   "color-converter": ColorConverterTool,
+  "pdf-metadata": PdfMetadataTool,
+  "pdf-page-counter": PdfPageCounterTool,
+  "pdf-to-text": PdfToTextTool,
+  "text-to-pdf": TextToPdfTool,
+  "file-checksum": FileChecksumTool,
 }

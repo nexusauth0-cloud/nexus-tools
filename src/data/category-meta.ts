@@ -130,6 +130,15 @@ export const categoryMeta: Record<string, CategoryMeta> = {
     featured: false,
     sortOrder: 12,
   },
+  document: {
+    name: "Document Tools",
+    description: "Inspect, extract, and create PDFs entirely in your browser.",
+    icon: "FileText",
+    gradient: "from-gold/30 to-gold-2/5",
+    tint: "text-gold",
+    featured: false,
+    sortOrder: 13,
+  },
 }
 
 /** Fallback used for categories without explicit metadata. */

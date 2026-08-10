@@ -14,30 +14,64 @@ interface FileDropProps {
   error?: string | null
   disabled?: boolean
   className?: string
+  /** Comma-separated MIME types or extensions for the file input. */
+  accept?: string
+  /** Human message shown when a file's MIME type doesn't match. */
+  acceptHint?: string
+  /** Size cap in bytes (defaults to the global image cap). */
+  maxBytes?: number
+  /** Size hint rendered under the drop area, e.g. "max 25 MB". */
+  sizeHint?: string
 }
 
-const ALLOWED_TYPES = new Set(["image/jpeg", "image/png", "image/webp"])
+const DEFAULT_ACCEPT = "image/jpeg,image/png,image/webp"
+const DEFAULT_ACCEPT_HINT = "Only JPEG, PNG or WebP images are supported."
 
 /**
- * Drag-and-drop + browse control for single image inputs. Rejects files
- * above the global 20 MB cap before they reach the tool; the real format
- * check happens by reading magic bytes, never the extension.
+ * Drag-and-drop + browse control for single file inputs. Rejects files
+ * above the size cap before they reach the tool; the real format check
+ * happens by reading magic bytes, never the extension.
  */
-export function FileDrop({ label, onSelect, onClear, error, disabled, className }: FileDropProps) {
+export function FileDrop({
+  label,
+  onSelect,
+  onClear,
+  error,
+  disabled,
+  className,
+  accept = DEFAULT_ACCEPT,
+  acceptHint = DEFAULT_ACCEPT_HINT,
+  maxBytes = MAX_IMAGE_FILE_BYTES,
+  sizeHint = "max 20 MB",
+}: FileDropProps) {
   const inputRef = useRef<HTMLInputElement>(null)
   const [dragging, setDragging] = useState(false)
   const [localError, setLocalError] = useState<string | null>(null)
 
-  const describe = useCallback((file: File): string | null => {
-    if (!ALLOWED_TYPES.has(file.type)) {
-      return "Only JPEG, PNG or WebP images are supported."
-    }
-    if (file.size > MAX_IMAGE_FILE_BYTES) {
-      const mb = Math.round(MAX_IMAGE_FILE_BYTES / (1024 * 1024))
-      return `This file is larger than the ${mb} MB limit.`
-    }
-    return null
-  }, [])
+  const describe = useCallback(
+    (file: File): string | null => {
+      const accepted = accept
+        .split(",")
+        .map((entry) => entry.trim().toLowerCase())
+        .filter(Boolean)
+      const matchesType = accepted.some(
+        (entry) => entry.startsWith("image/") && file.type.startsWith("image/")
+      )
+      const matchesExact = accepted.includes(file.type)
+      const matchesExt = accepted.some(
+        (entry) => entry.startsWith(".") && file.name.toLowerCase().endsWith(entry)
+      )
+      if (accepted.length > 0 && !(matchesExact || matchesType || matchesExt)) {
+        return acceptHint
+      }
+      if (file.size > maxBytes) {
+        const mb = Math.round(maxBytes / (1024 * 1024))
+        return `This file is larger than the ${mb} MB limit.`
+      }
+      return null
+    },
+    [accept, acceptHint, maxBytes]
+  )
 
   const handleFile = useCallback(
     (file: File | undefined) => {
@@ -97,12 +131,12 @@ export function FileDrop({ label, onSelect, onClear, error, disabled, className 
         <ImageUp className="h-6 w-6 text-muted-foreground" />
         <p className="text-sm font-medium">{label}</p>
         <p className="text-xs text-muted-foreground">
-          Drag &amp; drop, or click to browse · max 20 MB
+          Drag &amp; drop, or click to browse · {sizeHint}
         </p>
         <input
           ref={inputRef}
           type="file"
-          accept={Array.from(ALLOWED_TYPES).join(",")}
+          accept={accept.replace(/,/g, ",")}
           className="sr-only"
           disabled={disabled}
           onChange={(event) => {

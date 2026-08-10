@@ -2,18 +2,18 @@
 
 import { FileText } from "lucide-react"
 import { cn } from "@/lib/utils"
-import { formatFileSize, type ImageFormat } from "@/lib/image"
+import { formatFileSize } from "@/lib/image"
 
 interface FileMetaProps {
   file: File
-  /** Format detected from the file's real bytes (never the extension). */
-  format?: ImageFormat | null
+  /** Format label, e.g. "JPEG" or "PDF". */
+  format?: string | null
   width?: number
   height?: number
   className?: string
 }
 
-/** Compact one-line facts about a selected image file. */
+/** Compact one-line facts about a selected file. */
 export function FileMeta({ file, format, width, height, className }: FileMetaProps) {
   const facts = [
     format ? format.toUpperCase() : null,

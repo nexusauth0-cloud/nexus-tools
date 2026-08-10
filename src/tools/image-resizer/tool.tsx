@@ -118,7 +118,7 @@ export default function ImageResizer() {
     try {
       decoded = await decodeImageFile(source.file)
       const canvas = createCanvas(plan.targetWidth, plan.targetHeight)
-      const context = canvas.getContext("2d")
+      const context = canvas.getContext("2d") as CanvasRenderingContext2D | null
       if (!context) throw new Error("Canvas isn't available in this browser.")
       context.imageSmoothingQuality = "high"
       context.drawImage(decoded.source, 0, 0, plan.targetWidth, plan.targetHeight)
