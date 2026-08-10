@@ -10,6 +10,8 @@ import { manifest as pngWebpConverterManifest } from "./png-webp-converter/manif
 import { manifest as wordCounterManifest } from "./word-counter/manifest"
 import { manifest as caseConverterManifest } from "./case-converter/manifest"
 import { manifest as textDifferManifest } from "./text-differ/manifest"
+import { manifest as loremIpsumManifest } from "./lorem-ipsum/manifest"
+import { manifest as markdownPreviewManifest } from "./markdown-preview/manifest"
 import { manifest as slugGeneratorManifest } from "./slug-generator/manifest"
 import { manifest as jsonFormatterManifest } from "./json-formatter/manifest"
 import { manifest as base64EncoderManifest } from "./base64-encoder/manifest"
@@ -56,6 +58,8 @@ import PngWebpConverterTool from "./png-webp-converter/tool"
 import WordCounterTool from "./word-counter/tool"
 import CaseConverterTool from "./case-converter/tool"
 import TextDifferTool from "./text-differ/tool"
+import LoremIpsumTool from "./lorem-ipsum/tool"
+import MarkdownPreviewTool from "./markdown-preview/tool"
 import SlugGeneratorTool from "./slug-generator/tool"
 import JsonFormatterTool from "./json-formatter/tool"
 import JsonValidatorTool from "./json-validator/tool"
@@ -103,6 +107,8 @@ export const registeredToolManifests: ToolManifest[] = [
   wordCounterManifest,
   caseConverterManifest,
   textDifferManifest,
+  loremIpsumManifest,
+  markdownPreviewManifest,
   slugGeneratorManifest,
   jsonFormatterManifest,
   jsonValidatorManifest,
@@ -151,6 +157,8 @@ export const registeredToolComponents: Record<string, ComponentType<{ className?
   "word-counter": WordCounterTool,
   "case-converter": CaseConverterTool,
   "text-differ": TextDifferTool,
+  "lorem-ipsum": LoremIpsumTool,
+  "markdown-preview": MarkdownPreviewTool,
   "slug-generator": SlugGeneratorTool,
   "json-formatter": JsonFormatterTool,
   "json-validator": JsonValidatorTool,
