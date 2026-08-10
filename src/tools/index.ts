@@ -40,6 +40,11 @@ import { manifest as pdfPageCounterManifest } from "./pdf-page-counter/manifest"
 import { manifest as pdfToTextManifest } from "./pdf-to-text/manifest"
 import { manifest as textToPdfManifest } from "./text-to-pdf/manifest"
 import { manifest as fileChecksumManifest } from "./file-checksum/manifest"
+import { manifest as httpHeadersManifest } from "./http-headers/manifest"
+import { manifest as metaTagAnalyzerManifest } from "./meta-tag-analyzer/manifest"
+import { manifest as robotsTxtCheckerManifest } from "./robots-txt-checker/manifest"
+import { manifest as sitemapCheckerManifest } from "./sitemap-checker/manifest"
+import { manifest as urlParserManifest } from "./url-parser/manifest"
 
 import ImageCompressorTool from "./image-compressor/tool"
 import ImageResizerTool from "./image-resizer/tool"
@@ -81,6 +86,11 @@ import PdfPageCounterTool from "./pdf-page-counter/tool"
 import PdfToTextTool from "./pdf-to-text/tool"
 import TextToPdfTool from "./text-to-pdf/tool"
 import FileChecksumTool from "./file-checksum/tool"
+import HttpHeadersTool from "./http-headers/tool"
+import MetaTagAnalyzerTool from "./meta-tag-analyzer/tool"
+import RobotsTxtCheckerTool from "./robots-txt-checker/tool"
+import SitemapCheckerTool from "./sitemap-checker/tool"
+import UrlParserTool from "./url-parser/tool"
 
 export const registeredToolManifests: ToolManifest[] = [
   imageCompressorManifest,
@@ -123,6 +133,11 @@ export const registeredToolManifests: ToolManifest[] = [
   pdfToTextManifest,
   textToPdfManifest,
   fileChecksumManifest,
+  httpHeadersManifest,
+  metaTagAnalyzerManifest,
+  robotsTxtCheckerManifest,
+  sitemapCheckerManifest,
+  urlParserManifest,
 ]
 
 export const registeredToolComponents: Record<string, ComponentType<{ className?: string }>> = {
@@ -166,4 +181,9 @@ export const registeredToolComponents: Record<string, ComponentType<{ className?
   "pdf-to-text": PdfToTextTool,
   "text-to-pdf": TextToPdfTool,
   "file-checksum": FileChecksumTool,
+  "http-headers": HttpHeadersTool,
+  "meta-tag-analyzer": MetaTagAnalyzerTool,
+  "robots-txt-checker": RobotsTxtCheckerTool,
+  "sitemap-checker": SitemapCheckerTool,
+  "url-parser": UrlParserTool,
 }
