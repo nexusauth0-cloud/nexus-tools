@@ -13,7 +13,9 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:watch": "vitest",
-    "icons": "node scripts/generate-pwa-icons.mjs"
+    "artwork": "node scripts/build-help-artwork.mjs",
+    "icons": "node scripts/generate-pwa-icons.mjs",
+    "static": "node scripts/build-static.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.7.1",
@@ -35,6 +37,8 @@
     "cmdk": "^1.1.1",
     "framer-motion": "^12.43.0",
     "geist": "^1.7.2",
+    "js-yaml": "^5.2.3",
+    "json5": "^2.2.3",
     "lucide-react": "^1.28.0",
     "next": "16.3.0",
     "next-pwa": "^5.6.0",
@@ -50,10 +54,12 @@
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
+    "@types/js-yaml": "^4.0.9",
     "@types/node": "^20",
     "@types/pngjs": "^6.0.5",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "esbuild": "^0.28.2",
     "eslint": "^9",
     "eslint-config-next": "16.3.0",
     "eslint-config-prettier": "^10.1.8",
@@ -63,5 +69,8 @@
     "tailwindcss": "^4",
     "typescript": "^5",
     "vitest": "^4.1.10"
+  },
+  "allowScripts": {
+    "esbuild@0.28.2": true
   }
 }

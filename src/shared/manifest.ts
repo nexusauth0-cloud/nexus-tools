@@ -82,7 +82,9 @@ export const toolManifestSchema = z.object({
 export type ToolManifest = z.infer<typeof toolManifestSchema>
 
 /** Authoring helper with full defaults + strict validation. */
-export function defineToolManifest(input: ToolManifest): ToolManifest {
+export function defineToolManifest(
+  input: z.input<typeof toolManifestSchema>,
+): ToolManifest {
   return toolManifestSchema.parse(input)
 }
 
