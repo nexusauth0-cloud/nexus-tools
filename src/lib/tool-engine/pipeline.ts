@@ -27,7 +27,6 @@ export function createToolEngine<TSchema extends z.ZodTypeAny, TOutput extends T
   config: ToolEngineConfig<TSchema, TOutput>
 ): ToolEngine<TSchema, TOutput> {
   const { toolId, schema, normalize, process } = config
-
   const normalizeInput = (raw: ToolInput): ToolInput => (normalize ? normalize(raw) : raw)
 
   const validate = (raw: ToolInput): ToolValidationResult =>
@@ -79,7 +78,7 @@ export function createToolEngine<TSchema extends z.ZodTypeAny, TOutput extends T
     return result
   }
 
-  return { toolId, schema, validate, run }
+  return { toolId, schema, summarize: config.summarize, validate, run }
 }
 
 function createRunId(): string {

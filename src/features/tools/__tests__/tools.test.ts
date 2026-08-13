@@ -11,7 +11,10 @@ describe("json tool (registry → engine)", () => {
   it("minifies and validates", async () => {
     const min = await runTool("json", { input: '{\n  "a": 1\n}', params: { mode: "minify" } })
     expect(min.output).toBe('{"a":1}')
-    const valid = await runTool("json", { input: '{"a":[1,2],"b":null}', params: { mode: "validate" } })
+    const valid = await runTool("json", {
+      input: '{"a":[1,2],"b":null}',
+      params: { mode: "validate" },
+    })
     expect(valid.output).toMatch(/1 object, 1 array, 2 numbers, 1 null/)
   })
   it("reports errors with line/column", async () => {
@@ -49,7 +52,7 @@ describe("yaml tool", () => {
   })
 
   it("rejects executable tags", async () => {
-    const r = await runTool("yaml", { input: "a: !!js/function \"f() {}\"\n" })
+    const r = await runTool("yaml", { input: 'a: !!js/function "f() {}"\n' })
     expect(r.ok).toBe(false)
   })
 })

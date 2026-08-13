@@ -39,8 +39,11 @@ void modulePath
 
 const problems = execFileSync(
   process.execPath,
-  ["-e", `import("${CACHE}").then(async (m) => console.log(JSON.stringify(m.validateStaticConfig(${JSON.stringify(config)}))))`],
-  { encoding: "utf8" },
+  [
+    "-e",
+    `import("${CACHE}").then(async (m) => console.log(JSON.stringify(m.validateStaticConfig(${JSON.stringify(config)}))))`,
+  ],
+  { encoding: "utf8" }
 ).trim()
 const problemsList = JSON.parse(problems)
 if (problemsList.length > 0) {

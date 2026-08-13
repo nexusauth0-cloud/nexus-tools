@@ -55,7 +55,10 @@ export function parseStrictJson(text: string): JsonParseResult {
     return { ok: false, message: "Invalid JSON: the document is empty." }
   }
   if (!scanJsonNesting(input)) {
-    return { ok: false, message: `Invalid JSON: the document is too deep (over ${MAX_DEPTH} levels).` }
+    return {
+      ok: false,
+      message: `Invalid JSON: the document is too deep (over ${MAX_DEPTH} levels).`,
+    }
   }
   try {
     const value = JSON.parse(input)
@@ -80,7 +83,10 @@ export function parseStrictJson(text: string): JsonParseResult {
       const lastNewline = prefix.lastIndexOf("\n")
       column = position - lastNewline
     }
-    const reason = message.split("\n")[0].split(" in JSON")[0].replace(/^Unexpected/, "unexpected")
+    const reason = message
+      .split("\n")[0]
+      .split(" in JSON")[0]
+      .replace(/^Unexpected/, "unexpected")
     return { ok: false, message: `Invalid JSON: ${reason}.`, line, column }
   }
 }
@@ -128,7 +134,10 @@ export interface JsonFormatResult {
 }
 
 /** Format or minify strict JSON text. Never throws. */
-export function formatJsonText(text: string, mode: "format" | "minify" = "format"): JsonFormatResult {
+export function formatJsonText(
+  text: string,
+  mode: "format" | "minify" = "format"
+): JsonFormatResult {
   const parsed = parseStrictJson(text)
   if (!parsed.ok) return { ok: false, message: parsed.message }
   if (mode === "minify") {

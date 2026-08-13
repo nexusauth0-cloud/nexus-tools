@@ -77,9 +77,9 @@ export default function DataSheetsPage() {
         <h2 className="font-display text-lg font-semibold text-foreground">How to add a tool</h2>
         <ol className="list-decimal space-y-2 pl-5">
           <li>
-            Write the logic module in <code className="font-mono text-xs">src/features/tools/&lt;id&gt;/tool.ts</code>{" "}
-            (export <code className="font-mono text-xs">run(input, params)</code> and register
-            artwork).
+            Write the logic module in{" "}
+            <code className="font-mono text-xs">src/features/tools/&lt;id&gt;/tool.ts</code> (export{" "}
+            <code className="font-mono text-xs">run(input, params)</code> and register artwork).
           </li>
           <li>
             Add the tool to <code className="font-mono text-xs">data-sheets/static.yaml</code> with

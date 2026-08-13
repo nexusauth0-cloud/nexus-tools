@@ -47,6 +47,11 @@ import { manifest as metaTagAnalyzerManifest } from "./meta-tag-analyzer/manifes
 import { manifest as robotsTxtCheckerManifest } from "./robots-txt-checker/manifest"
 import { manifest as sitemapCheckerManifest } from "./sitemap-checker/manifest"
 import { manifest as urlParserManifest } from "./url-parser/manifest"
+import { manifest as qrGeneratorManifest } from "./qr-generator/manifest"
+import { manifest as qrReaderManifest } from "./qr-reader/manifest"
+import { manifest as jsonPathManifest } from "./jsonpath/manifest"
+import { manifest as jwtGeneratorManifest } from "./jwt-generator/manifest"
+import { manifest as httpRequestManifest } from "./http-request/manifest"
 
 import ImageCompressorTool from "./image-compressor/tool"
 import ImageResizerTool from "./image-resizer/tool"
@@ -95,6 +100,11 @@ import MetaTagAnalyzerTool from "./meta-tag-analyzer/tool"
 import RobotsTxtCheckerTool from "./robots-txt-checker/tool"
 import SitemapCheckerTool from "./sitemap-checker/tool"
 import UrlParserTool from "./url-parser/tool"
+import QrGeneratorTool from "./qr-generator/tool"
+import QrReaderTool from "./qr-reader/tool"
+import JsonPathTool from "./jsonpath/tool"
+import JwtGeneratorTool from "./jwt-generator/tool"
+import HttpRequestTool from "./http-request/tool"
 
 export const registeredToolManifests: ToolManifest[] = [
   imageCompressorManifest,
@@ -144,6 +154,11 @@ export const registeredToolManifests: ToolManifest[] = [
   robotsTxtCheckerManifest,
   sitemapCheckerManifest,
   urlParserManifest,
+  qrGeneratorManifest,
+  qrReaderManifest,
+  jsonPathManifest,
+  jwtGeneratorManifest,
+  httpRequestManifest,
 ]
 
 export const registeredToolComponents: Record<string, ComponentType<{ className?: string }>> = {
@@ -194,4 +209,9 @@ export const registeredToolComponents: Record<string, ComponentType<{ className?
   "robots-txt-checker": RobotsTxtCheckerTool,
   "sitemap-checker": SitemapCheckerTool,
   "url-parser": UrlParserTool,
+  "qr-generator": QrGeneratorTool,
+  "qr-reader": QrReaderTool,
+  jsonpath: JsonPathTool,
+  "jwt-generator": JwtGeneratorTool,
+  "http-request": HttpRequestTool,
 }

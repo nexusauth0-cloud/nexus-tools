@@ -27,15 +27,21 @@ function describeShape(value: unknown): string {
   const count = (item: unknown): { keys: number; items: number } => {
     if (Array.isArray(item)) {
       const inner = item.reduce(
-        (acc, child) => ({ keys: acc.keys + count(child).keys, items: acc.items + count(child).items }),
-        { keys: 0, items: 0 },
+        (acc, child) => ({
+          keys: acc.keys + count(child).keys,
+          items: acc.items + count(child).items,
+        }),
+        { keys: 0, items: 0 }
       )
       return { keys: inner.keys, items: inner.items + 1 }
     }
     if (item !== null && typeof item === "object") {
       const inner = Object.values(item).reduce(
-        (acc, child) => ({ keys: acc.keys + count(child).keys, items: acc.items + count(child).items }),
-        { keys: 0, items: 0 },
+        (acc, child) => ({
+          keys: acc.keys + count(child).keys,
+          items: acc.items + count(child).items,
+        }),
+        { keys: 0, items: 0 }
       )
       return { keys: inner.keys + Object.keys(item).length, items: inner.items }
     }
@@ -100,7 +106,7 @@ registerDecoration(
     "   | Y  |    | A  |    | M  |",
     "   `----'    `----'    `----'",
     "     YAML    TO      JSON",
-  ].join("\n"),
+  ].join("\n")
 )
 
 export const helpArt: string = [

@@ -77,7 +77,9 @@ export function useTool<TSchema extends ToolInputSchema, TOutput extends ToolOut
         })
 
         recordMetrics(engine.toolId, runResult.metrics)
-        addHistory(toHistoryEntry(engine, optionsRef.current.summarize, raw, runResult))
+        addHistory(
+          toHistoryEntry(engine, optionsRef.current.summarize ?? engine.summarize, raw, runResult)
+        )
         trackToolRun({
           slug: engine.toolId,
           ok: true,

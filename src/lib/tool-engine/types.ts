@@ -95,6 +95,8 @@ export interface ToolEngineConfig<TSchema extends ToolInputSchema, TOutput exten
 export interface ToolEngine<TSchema extends ToolInputSchema, TOutput extends ToolOutput> {
   toolId: string
   schema: TSchema
+  /** History summaries (input/output) declared by the tool itself. */
+  summarize?: ToolSummarizer<z.infer<TSchema>, TOutput>
   /** Validate only — no side effects. */
   validate(raw: ToolInput): ToolValidationResult
   /** Full pipeline: normalize → validate → process → measure. Throws ToolExecutionError. */

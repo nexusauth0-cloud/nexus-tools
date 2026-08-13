@@ -41,11 +41,7 @@ export function CommonResults({ blocks, info }: CommonResultsProps) {
             ) : null}
             <div className="relative">
               <CodeBlock className="max-h-96 overflow-auto">{block.text}</CodeBlock>
-              <CopyButton
-                text={block.text}
-                label="Copy"
-                className="absolute right-2 top-2"
-              />
+              <CopyButton text={block.text} label="Copy" className="absolute right-2 top-2" />
             </div>
           </div>
         ) : (
@@ -53,7 +49,7 @@ export function CommonResults({ blocks, info }: CommonResultsProps) {
             {block.label ? <span className="font-medium">{block.label}: </span> : null}
             {block.text}
           </p>
-        ),
+        )
       )}
     </div>
   )

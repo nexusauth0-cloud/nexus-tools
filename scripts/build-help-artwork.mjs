@@ -39,4 +39,6 @@ export const HELP_ARTWORK: Record<string, string> = ${JSON.stringify(registered,
 `
 mkdirSync(dirname(SNAPSHOT), { recursive: true })
 writeFileSync(SNAPSHOT, source)
-console.log(`build-help-artwork: wrote ${Object.keys(registered).length} decorations to ${SNAPSHOT}`)
+console.log(
+  `build-help-artwork: wrote ${Object.keys(registered).length} decorations to ${SNAPSHOT}`
+)

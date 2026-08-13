@@ -1,14 +1,11 @@
 import { describe, expect, it } from "vitest"
-import {
-  hasNonFiniteNumber,
-  jsonToYaml,
-  parseYamlText,
-  YAML_MAX_ALIASES,
-} from "./yaml"
+import { hasNonFiniteNumber, jsonToYaml, parseYamlText, YAML_MAX_ALIASES } from "./yaml"
 
 describe("parseYamlText", () => {
   it("parses mappings, sequences, scalars, and nesting", () => {
-    const result = parseYamlText("name: nexus\nversion: 1\nitems: [a, b]\nnested:\n  deep: true\nnull: null\n")
+    const result = parseYamlText(
+      "name: nexus\nversion: 1\nitems: [a, b]\nnested:\n  deep: true\nnull: null\n"
+    )
     expect(result.ok).toBe(true)
     if (!result.ok) return
     expect(result.value).toEqual({
@@ -21,7 +18,7 @@ describe("parseYamlText", () => {
   })
 
   it("parses quoted and multiline strings", () => {
-    const result = parseYamlText('q: "double"\ns: \'single\'\nblock: |\n  line one\n  line two\n')
+    const result = parseYamlText("q: \"double\"\ns: 'single'\nblock: |\n  line one\n  line two\n")
     expect(result.ok).toBe(true)
     if (!result.ok) return
     expect(result.value).toEqual({ q: "double", s: "single", block: "line one\nline two\n" })
@@ -74,7 +71,7 @@ describe("parseYamlText", () => {
 
 describe("YAML security", () => {
   it("rejects executable JS tags", () => {
-    const result = parseYamlText("a: !!js/function \"function () { return 1 }\"")
+    const result = parseYamlText('a: !!js/function "function () { return 1 }"')
     expect(result.ok).toBe(false)
     if (result.ok) return
     expect(result.message).not.toContain("function (")
@@ -125,7 +122,7 @@ describe("YAML security", () => {
 
   it("never succeeds on executable-looking payloads", () => {
     const attempts = [
-      "a: !!eval \"alert(1)\"",
+      'a: !!eval "alert(1)"',
       "!!import util",
       "a: !<tag:yaml.org,2002:js/function> x",
       "!!python/object:os.system",

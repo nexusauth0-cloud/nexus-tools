@@ -57,7 +57,10 @@ function defaultParams(decl: WorkspaceDecl): Record<string, string> {
   return params
 }
 
-function exampleAsParams(decl: WorkspaceDecl, example?: { input?: string; params?: Record<string, string> }): { input: string; params: Record<string, string> } {
+function exampleAsParams(
+  decl: WorkspaceDecl,
+  example?: { input?: string; params?: Record<string, string> }
+): { input: string; params: Record<string, string> } {
   const base = defaultParams(decl)
   return {
     input: example?.input ?? decl.defaultInput ?? "",
@@ -73,10 +76,7 @@ function exampleAsParams(decl: WorkspaceDecl, example?: { input?: string; params
 export function ToolWorkspace({ decl, entryPoint, switcherTools }: ToolWorkspaceProps) {
   const router = useRouter()
   const loader = React.useMemo(() => getRuntimeLoader(entryPoint), [entryPoint])
-  const starter = React.useMemo(
-    () => exampleAsParams(decl, decl.examples?.[0]),
-    [decl],
-  )
+  const starter = React.useMemo(() => exampleAsParams(decl, decl.examples?.[0]), [decl])
 
   const [input, setInput] = React.useState(starter.input)
   const [params, setParams] = React.useState<Record<string, string>>(starter.params)
@@ -109,7 +109,7 @@ export function ToolWorkspace({ decl, entryPoint, switcherTools }: ToolWorkspace
         setBusy(false)
       }
     },
-    [loader],
+    [loader]
   )
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -131,7 +131,9 @@ export function ToolWorkspace({ decl, entryPoint, switcherTools }: ToolWorkspace
       return
     }
     if (text.length > MAX_INPUT_CHARS) {
-      setError({ message: `The file is too large (over ${MAX_INPUT_CHARS.toLocaleString()} characters).` })
+      setError({
+        message: `The file is too large (over ${MAX_INPUT_CHARS.toLocaleString()} characters).`,
+      })
       return
     }
     setError(null)
@@ -147,7 +149,12 @@ export function ToolWorkspace({ decl, entryPoint, switcherTools }: ToolWorkspace
 
   return (
     <div className="grid gap-6 lg:grid-cols-2">
-      <form onSubmit={handleSubmit} className="flex flex-col gap-5" noValidate aria-label={`${decl.title} form`}>
+      <form
+        onSubmit={handleSubmit}
+        className="flex flex-col gap-5"
+        noValidate
+        aria-label={`${decl.title} form`}
+      >
         {switcherTools.length > 1 ? (
           <label className="flex flex-col gap-2 text-sm">
             <span className="font-medium text-foreground">Other converters</span>
@@ -198,7 +205,7 @@ export function ToolWorkspace({ decl, entryPoint, switcherTools }: ToolWorkspace
                 }
               />
             </label>
-          ),
+          )
         )}
 
         {decl.presets && decl.presets.length > 0 ? (

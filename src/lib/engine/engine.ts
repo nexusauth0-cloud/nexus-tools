@@ -75,7 +75,7 @@ function depthOf(value: unknown): number {
 export async function runTool(
   id: string,
   options: RunToolOptions,
-  tools: StaticToolEntry[] = STATIC_TOOLS,
+  tools: StaticToolEntry[] = STATIC_TOOLS
 ): Promise<RunToolOutcome> {
   const tool = tools.find((entry) => entry.id === id)
   if (!tool) {
@@ -89,8 +89,10 @@ export async function runTool(
  * Caps and error normalization behave identically to runTool.
  */
 export async function runWiredTool(
-  loader: () => Promise<{ run: (input: string, params: Record<string, string>) => ToolRunResult | Promise<ToolRunResult> }>,
-  options: RunToolOptions,
+  loader: () => Promise<{
+    run: (input: string, params: Record<string, string>) => ToolRunResult | Promise<ToolRunResult>
+  }>,
+  options: RunToolOptions
 ): Promise<RunToolOutcome> {
   const capError = checkInputCaps(options.input)
   if (capError) return { ok: false, output: "", error: normalizeError(capError) }
@@ -105,7 +107,10 @@ export async function runWiredTool(
   return finalizeResult(result)
 }
 
-async function executeTool(tool: StaticToolEntry, options: RunToolOptions): Promise<RunToolOutcome> {
+async function executeTool(
+  tool: StaticToolEntry,
+  options: RunToolOptions
+): Promise<RunToolOutcome> {
   const capError = checkInputCaps(options.input)
   if (capError) return { ok: false, output: "", error: normalizeError(capError) }
   try {

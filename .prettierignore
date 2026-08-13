@@ -10,3 +10,5 @@ public/worker-*.js
 public/fallback-*.js
 package-lock.json
 next-env.d.ts
+# JSON5 content with a .yaml extension — Prettier cannot parse it as YAML.
+data-sheets/static.yaml

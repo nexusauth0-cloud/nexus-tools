@@ -19,7 +19,8 @@ export interface JsonToolResult {
   output: string
   line?: number
   column?: number
-}interface Counts {
+}
+interface Counts {
   objects: number
   arrays: number
   strings: number
@@ -30,7 +31,15 @@ export interface JsonToolResult {
 }
 
 function countJson(value: unknown, depth = 1): Counts {
-  const counts: Counts = { objects: 0, arrays: 0, strings: 0, numbers: 0, booleans: 0, nulls: 0, maxDepth: depth }
+  const counts: Counts = {
+    objects: 0,
+    arrays: 0,
+    strings: 0,
+    numbers: 0,
+    booleans: 0,
+    nulls: 0,
+    maxDepth: depth,
+  }
   const walk = (item: unknown, currentDepth: number): void => {
     counts.maxDepth = Math.max(counts.maxDepth, currentDepth)
     if (Array.isArray(item)) {
@@ -101,7 +110,7 @@ registerDecoration(
     "     EEEEEEEEEEE8 ::8888888888;",
     "",
     "     > Merely JSON.",
-  ].join("\n"),
+  ].join("\n")
 )
 
 export const helpArt: string = [

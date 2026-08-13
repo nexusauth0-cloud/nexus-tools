@@ -19,6 +19,25 @@ function makeEngine() {
   return { engine, process, seenContext }
 }
 
+describe("createToolEngine.summarize", () => {
+  it("exposes the declared summarizer on the engine (used by useTool history)", () => {
+    const { engine } = makeEngine()
+    expect(engine.summarize).toBeUndefined()
+
+    const withSummaries = createToolEngine({
+      toolId: "test-tool",
+      schema,
+      process: () => ({ echoed: "", doubled: 0 }),
+      summarize: {
+        input: (value) => `count=${value.count}`,
+        output: (value) => `doubled=${value.doubled}`,
+      },
+    })
+    expect(withSummaries.summarize?.input?.({ input: "x", count: 3 })).toBe("count=3")
+    expect(withSummaries.summarize?.output?.({ echoed: "x", doubled: 6 })).toBe("doubled=6")
+  })
+})
+
 describe("createToolEngine.run", () => {
   it("returns a measured, id-stamped result", async () => {
     const { engine, process, seenContext } = makeEngine()

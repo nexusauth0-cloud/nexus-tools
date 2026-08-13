@@ -39,15 +39,14 @@ export function run(input: string): RadixToolResult {
     { label: "Decimal (base 10)", text: values[10], code: true },
     { label: "Hex (base 16)", text: values[16], code: true },
   ]
-  const fullTable = RADIX_BASES.map((base) => `${String(base).padStart(2)}: ${values[base]}`).join("\n")
+  const fullTable = RADIX_BASES.map((base) => `${String(base).padStart(2)}: ${values[base]}`).join(
+    "\n"
+  )
 
   return {
     ok: true,
     output: `${values[16]} (hex)`,
-    blocks: [
-      ...keyBases,
-      { label: `All bases 2–36`, text: fullTable, code: true },
-    ],
+    blocks: [...keyBases, { label: `All bases 2–36`, text: fullTable, code: true }],
     info: {
       decimal: String(result.decimal),
       "guessed as": REASON_LABELS[result.reason ?? "dec"],
@@ -57,12 +56,9 @@ export function run(input: string): RadixToolResult {
 
 registerDecoration(
   "radix",
-  [
-    "   ff (hex)  =  255 (dec)",
-    "   = 11111111 (bin)",
-    "   = 377 (oct)",
-    "   = ff (base 16)",
-  ].join("\n"),
+  ["   ff (hex)  =  255 (dec)", "   = 11111111 (bin)", "   = 377 (oct)", "   = ff (base 16)"].join(
+    "\n"
+  )
 )
 
 export const helpArt: string = [

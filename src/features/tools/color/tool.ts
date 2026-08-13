@@ -34,10 +34,7 @@ function hexToRgb(hex: string): Rgb | undefined {
   const clean = hex.trim().replace(/^#/, "")
   if (clean.length !== 3 && clean.length !== 6) return undefined
   if (!/^[0-9a-fA-F]+$/.test(clean)) return undefined
-  const expanded =
-    clean.length === 3
-      ? [...clean].map((char) => char + char).join("")
-      : clean
+  const expanded = clean.length === 3 ? [...clean].map((char) => char + char).join("") : clean
   const value = parseInt(expanded, 16)
   return { r: (value >> 16) & 0xff, g: (value >> 8) & 0xff, b: value & 0xff }
 }
@@ -71,7 +68,9 @@ function parseRgbFunction(input: string): Rgb | undefined {
 function parseHslFunction(input: string): Rgb | undefined {
   const match = input
     .trim()
-    .match(/^hsl\(\s*(\d{1,3})(?:\.\d+)?\s*,\s*(\d{1,3}(?:\.\d+)?)%\s*,\s*(\d{1,3}(?:\.\d+)?)%\s*\)$/)
+    .match(
+      /^hsl\(\s*(\d{1,3})(?:\.\d+)?\s*,\s*(\d{1,3}(?:\.\d+)?)%\s*,\s*(\d{1,3}(?:\.\d+)?)%\s*\)$/
+    )
   if (!match) return undefined
   const h = Number(match[1]) / 360
   const s = Number(match[2]) / 100
@@ -93,7 +92,11 @@ function parseHslFunction(input: string): Rgb | undefined {
 }
 
 function detect(input: string): Rgb | undefined {
-  if (input.trim().startsWith("#") || /^[0-9a-fA-F]{6}$/.test(input.trim()) || /^[0-9a-fA-F]{3}$/.test(input.trim())) {
+  if (
+    input.trim().startsWith("#") ||
+    /^[0-9a-fA-F]{6}$/.test(input.trim()) ||
+    /^[0-9a-fA-F]{3}$/.test(input.trim())
+  ) {
     const rgb = hexToRgb(input)
     if (rgb) return rgb
   }
@@ -125,7 +128,8 @@ export function run(input: string, params: Record<string, string>): ColorToolRes
   if (!rgb) {
     return {
       ok: false,
-      output: 'Invalid color. Try "#ff8800", "rgb(255, 136, 0)", "hsl(32, 100%, 50%)", or "orange".',
+      output:
+        'Invalid color. Try "#ff8800", "rgb(255, 136, 0)", "hsl(32, 100%, 50%)", or "orange".',
     }
   }
   const hsl = rgbToHsl(rgb)
@@ -163,11 +167,9 @@ export function run(input: string, params: Record<string, string>): ColorToolRes
 
 registerDecoration(
   "color",
-  [
-    "   ██████   #FF8800",
-    "   ██████   rgb(255, 136, 0)",
-    "   ██████   hsl(32, 100%, 50%)",
-  ].join("\n"),
+  ["   ██████   #FF8800", "   ██████   rgb(255, 136, 0)", "   ██████   hsl(32, 100%, 50%)"].join(
+    "\n"
+  )
 )
 
 export const helpArt: string = [

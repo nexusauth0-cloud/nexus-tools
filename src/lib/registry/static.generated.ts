@@ -12,7 +12,13 @@ export interface StaticToolDeclGenerated {
   examples: Array<{ label: string; input: string; params?: Record<string, string> }>
   hint?: string
   defaultInput?: string
-  params?: Array<{ key: string; label: string; defaultValue?: string; options?: Array<{ value: string; label?: string }>; helpText?: string }>
+  params?: Array<{
+    key: string
+    label: string
+    defaultValue?: string
+    options?: Array<{ value: string; label?: string }>
+    helpText?: string
+  }>
   presets?: Array<{ label: string; input?: string; params?: Record<string, string> }>
   emptyInputPlaceholder?: string
   faq: Array<{ q: string; a: string[] }>
@@ -22,394 +28,390 @@ export interface StaticToolDeclGenerated {
 
 export const STATIC_CONFIG: StaticToolDeclGenerated[] = [
   {
-    "id": "json",
-    "title": "JSON formatter & validator",
-    "subtitle": "Format, validate, minify, or binary-escape JSON",
-    "category": "converters",
-    "icon": "braces",
-    "accent": "#e3b341",
-    "entryPoint": "tools:json",
-    "description": [
+    id: "json",
+    title: "JSON formatter & validator",
+    subtitle: "Format, validate, minify, or binary-escape JSON",
+    category: "converters",
+    icon: "braces",
+    accent: "#e3b341",
+    entryPoint: "tools:json",
+    description: [
       "Inspect and transform JSON: format it into readable, indented text, check that it is valid, compress it to a single line, or escape every non-ASCII character so the result is safe to paste anywhere.",
-      "Only strict JSON (RFC 8259) is accepted — no comments, no trailing commas, no bare Infinity or NaN. Nesting beyond 100 levels and inputs over 500,000 characters are rejected up front, so pasting hostile or enormous documents stays fast and safe."
+      "Only strict JSON (RFC 8259) is accepted — no comments, no trailing commas, no bare Infinity or NaN. Nesting beyond 100 levels and inputs over 500,000 characters are rejected up front, so pasting hostile or enormous documents stays fast and safe.",
     ],
-    "examples": [
+    examples: [
       {
-        "label": "Format",
-        "input": "{\"name\":\"nexus\",\"versions\":[1,2,3],\"enabled\":true}"
+        label: "Format",
+        input: '{"name":"nexus","versions":[1,2,3],"enabled":true}',
       },
       {
-        "label": "Minify",
-        "input": "{\n  \"a\": 1,\n  \"b\": [true, null, \"x\"]\n}",
-        "params": {
-          "mode": "minify"
-        }
+        label: "Minify",
+        input: '{\n  "a": 1,\n  "b": [true, null, "x"]\n}',
+        params: {
+          mode: "minify",
+        },
       },
       {
-        "label": "Binary-safe",
-        "input": "{\"emoji\":\"🚀\",\"line\":\"tab\there\"}",
-        "params": {
-          "mode": "binary"
-        }
-      }
+        label: "Binary-safe",
+        input: '{"emoji":"🚀","line":"tab\there"}',
+        params: {
+          mode: "binary",
+        },
+      },
     ],
-    "hint": "The result replaces the input. Copy it out and paste it back in any time you need to re-format.",
-    "params": [
+    hint: "The result replaces the input. Copy it out and paste it back in any time you need to re-format.",
+    params: [
       {
-        "key": "mode",
-        "label": "Mode",
-        "defaultValue": "format",
-        "options": [
+        key: "mode",
+        label: "Mode",
+        defaultValue: "format",
+        options: [
           {
-            "value": "format",
-            "label": "Format"
+            value: "format",
+            label: "Format",
           },
           {
-            "value": "validate",
-            "label": "Validate"
+            value: "validate",
+            label: "Validate",
           },
           {
-            "value": "minify",
-            "label": "Minify"
+            value: "minify",
+            label: "Minify",
           },
           {
-            "value": "binary",
-            "label": "Binary-safe"
-          }
+            value: "binary",
+            label: "Binary-safe",
+          },
         ],
-        "helpText": "validate only summarizes the document; binary escapes all non-ASCII characters."
-      }
+        helpText: "validate only summarizes the document; binary escapes all non-ASCII characters.",
+      },
     ],
-    "presets": [
+    presets: [
       {
-        "label": "Pretty-print",
-        "params": {
-          "mode": "format"
-        }
+        label: "Pretty-print",
+        params: {
+          mode: "format",
+        },
       },
       {
-        "label": "Validate only",
-        "params": {
-          "mode": "validate"
-        }
+        label: "Validate only",
+        params: {
+          mode: "validate",
+        },
       },
       {
-        "label": "Single line",
-        "params": {
-          "mode": "minify"
-        }
+        label: "Single line",
+        params: {
+          mode: "minify",
+        },
       },
       {
-        "label": "Escape all non-ASCII",
-        "params": {
-          "mode": "binary"
-        }
-      }
+        label: "Escape all non-ASCII",
+        params: {
+          mode: "binary",
+        },
+      },
     ],
-    "emptyInputPlaceholder": "Paste JSON here…",
-    "faq": [
+    emptyInputPlaceholder: "Paste JSON here…",
+    faq: [
       {
-        "q": "Why is my JSON rejected?",
-        "a": [
-          "... is almost always because of something that is not strict JSON: comments (// or /* */), single-quoted strings, trailing commas, or unquoted keys. This tool accepts exactly what JSON.parse accepts, nothing more. If you need JSON5, use the YAML tool — it parses JSON5-style files through YAML semantics."
-        ]
+        q: "Why is my JSON rejected?",
+        a: [
+          "... is almost always because of something that is not strict JSON: comments (// or /* */), single-quoted strings, trailing commas, or unquoted keys. This tool accepts exactly what JSON.parse accepts, nothing more. If you need JSON5, use the YAML tool — it parses JSON5-style files through YAML semantics.",
+        ],
       },
       {
-        "q": "What happens to very large documents?",
-        "a": [
-          "Documents over 500,000 characters are refused before any work starts. Documents nested deeper than 100 levels are also refused. Both limits are documented here and enforced defensively, so this page always stays responsive."
-        ]
+        q: "What happens to very large documents?",
+        a: [
+          "Documents over 500,000 characters are refused before any work starts. Documents nested deeper than 100 levels are also refused. Both limits are documented here and enforced defensively, so this page always stays responsive.",
+        ],
       },
       {
-        "q": "Can the output contain Infinity or NaN?",
-        "a": [
-          "No. Strict JSON has no literals for them, so they never enter parse results. Non-finite numbers can only be produced by YAML input on other tools — never here."
-        ]
+        q: "Can the output contain Infinity or NaN?",
+        a: [
+          "No. Strict JSON has no literals for them, so they never enter parse results. Non-finite numbers can only be produced by YAML input on other tools — never here.",
+        ],
       },
       {
-        "q": "What does \"binary-safe\" do?",
-        "a": [
-          "It formats the document and also escapes every character outside printable ASCII as \\uXXXX, so pasted text (emoji, accents, tabs, control codes) re-parses to the identical value even through systems that mangle raw characters."
-        ]
-      }
+        q: 'What does "binary-safe" do?',
+        a: [
+          "It formats the document and also escapes every character outside printable ASCII as \\uXXXX, so pasted text (emoji, accents, tabs, control codes) re-parses to the identical value even through systems that mangle raw characters.",
+        ],
+      },
     ],
-    "limits": [
+    limits: [
       "Input: at most 500,000 characters.",
       "Nesting: at most 100 levels.",
-      "Output: at most 2,000,000 characters."
-    ]
+      "Output: at most 2,000,000 characters.",
+    ],
   },
   {
-    "id": "yaml",
-    "title": "YAML ↔ JSON converter",
-    "subtitle": "Convert YAML to JSON and back, safely",
-    "category": "converters",
-    "icon": "braces",
-    "accent": "#e5534b",
-    "entryPoint": "tools:yaml",
-    "description": [
+    id: "yaml",
+    title: "YAML ↔ JSON converter",
+    subtitle: "Convert YAML to JSON and back, safely",
+    category: "converters",
+    icon: "braces",
+    accent: "#e5534b",
+    entryPoint: "tools:yaml",
+    description: [
       "Convert YAML to readable JSON or JSON back to YAML in one click. Parsing is plain-data only (YAML 1.2 core): custom tags, anchors bombs, and executable tags are rejected up front, and nothing ever executes.",
-      "YAML 1.2 semantics apply: \"yes\"/\"no\" stay strings, \"null\" becomes null, and the \"<<\" merge key stays plain data. Non-finite numbers such as Infinity or NaN (legal in YAML, illegal in JSON) become the literals \"Infinity\" / \"NaN\" so nothing is silently turned into null."
+      'YAML 1.2 semantics apply: "yes"/"no" stay strings, "null" becomes null, and the "<<" merge key stays plain data. Non-finite numbers such as Infinity or NaN (legal in YAML, illegal in JSON) become the literals "Infinity" / "NaN" so nothing is silently turned into null.',
     ],
-    "examples": [
+    examples: [
       {
-        "label": "YAML → JSON",
-        "input": "name: nexus\nversion: 1\nfeatures: [format, validate]\nstable: true\n"
+        label: "YAML → JSON",
+        input: "name: nexus\nversion: 1\nfeatures: [format, validate]\nstable: true\n",
       },
       {
-        "label": "JSON → YAML",
-        "input": "{\"name\":\"nexus\",\"versions\":[1,2,3],\"enabled\":true}",
-        "params": {
-          "direction": "to-yaml"
-        }
-      }
+        label: "JSON → YAML",
+        input: '{"name":"nexus","versions":[1,2,3],"enabled":true}',
+        params: {
+          direction: "to-yaml",
+        },
+      },
     ],
-    "hint": "Direction is chosen above; the result replaces the input and can be copied with one click.",
-    "params": [
+    hint: "Direction is chosen above; the result replaces the input and can be copied with one click.",
+    params: [
       {
-        "key": "direction",
-        "label": "Direction",
-        "defaultValue": "to-json",
-        "options": [
+        key: "direction",
+        label: "Direction",
+        defaultValue: "to-json",
+        options: [
           {
-            "value": "to-json",
-            "label": "YAML → JSON"
+            value: "to-json",
+            label: "YAML → JSON",
           },
           {
-            "value": "to-yaml",
-            "label": "JSON → YAML"
-          }
-        ]
-      }
+            value: "to-yaml",
+            label: "JSON → YAML",
+          },
+        ],
+      },
     ],
-    "presets": [
+    presets: [
       {
-        "label": "YAML → JSON",
-        "params": {
-          "direction": "to-json"
-        }
+        label: "YAML → JSON",
+        params: {
+          direction: "to-json",
+        },
       },
       {
-        "label": "JSON → YAML",
-        "params": {
-          "direction": "to-yaml"
-        }
-      }
+        label: "JSON → YAML",
+        params: {
+          direction: "to-yaml",
+        },
+      },
     ],
-    "emptyInputPlaceholder": "Paste YAML or JSON here…",
-    "faq": [
+    emptyInputPlaceholder: "Paste YAML or JSON here…",
+    faq: [
       {
-        "q": "Is YAML parsing safe?",
-        "a": [
-          "Yes. Only plain-data YAML is constructed — never tags, never classes, never code. Anchors are capped (the classic billion-laughs expansion is rejected before it grows), nesting is capped at 100 levels, and documents over 500,000 characters are refused. See the security section of this page for the details."
-        ]
+        q: "Is YAML parsing safe?",
+        a: [
+          "Yes. Only plain-data YAML is constructed — never tags, never classes, never code. Anchors are capped (the classic billion-laughs expansion is rejected before it grows), nesting is capped at 100 levels, and documents over 500,000 characters are refused. See the security section of this page for the details.",
+        ],
       },
       {
-        "q": "Why did \"yes\" stay a string?",
-        "a": [
-          "This tool uses YAML 1.2 core semantics, where yes/no are ordinary strings. Older YAML 1.1 tools converted them to booleans, which silently changed meaning. If you want booleans, write true/false."
-        ]
+        q: 'Why did "yes" stay a string?',
+        a: [
+          "This tool uses YAML 1.2 core semantics, where yes/no are ordinary strings. Older YAML 1.1 tools converted them to booleans, which silently changed meaning. If you want booleans, write true/false.",
+        ],
       },
       {
-        "q": "What happens to Infinity or NaN in my YAML?",
-        "a": [
-          "JSON has no way to write them, so they would normally be lost. This tool keeps them as the literal strings \"Infinity\" and \"NaN\" so the value never becomes null by surprise."
-        ]
+        q: "What happens to Infinity or NaN in my YAML?",
+        a: [
+          'JSON has no way to write them, so they would normally be lost. This tool keeps them as the literal strings "Infinity" and "NaN" so the value never becomes null by surprise.',
+        ],
       },
       {
-        "q": "Can I merge maps with <<?",
-        "a": [
-          "The merge key is kept as plain data (not merged), so what you wrote is what you get — deterministic round-trips with no hidden behavior."
-        ]
-      }
+        q: "Can I merge maps with <<?",
+        a: [
+          "The merge key is kept as plain data (not merged), so what you wrote is what you get — deterministic round-trips with no hidden behavior.",
+        ],
+      },
     ],
-    "limits": [
+    limits: [
       "Input: at most 500,000 characters.",
       "Nesting: at most 100 levels.",
       "Aliases: at most 128 resolved references per document.",
-      "Output: at most 2,000,000 characters."
-    ]
+      "Output: at most 2,000,000 characters.",
+    ],
   },
   {
-    "id": "csv",
-    "title": "CSV → JSON converter",
-    "subtitle": "Turn CSV with a header row into clean JSON",
-    "category": "converters",
-    "icon": "braces",
-    "accent": "#2da44e",
-    "entryPoint": "tools:csv",
-    "description": [
+    id: "csv",
+    title: "CSV → JSON converter",
+    subtitle: "Turn CSV with a header row into clean JSON",
+    category: "converters",
+    icon: "braces",
+    accent: "#2da44e",
+    entryPoint: "tools:csv",
+    description: [
       "Paste any RFC 4180 CSV (comma-separated, quoted fields, CRLF or LF) and get an array of objects keyed by the header row. Quoted fields may contain commas, quotes, and newlines.",
-      "The first row must be the header. Every row must have the same number of fields. Fields longer than 10,000 characters are truncated with an ellipsis so the output stays manageable, and a small preview plus row/column counts are shown alongside the result."
+      "The first row must be the header. Every row must have the same number of fields. Fields longer than 10,000 characters are truncated with an ellipsis so the output stays manageable, and a small preview plus row/column counts are shown alongside the result.",
     ],
-    "examples": [
+    examples: [
       {
-        "label": "Basic table",
-        "input": "name,votes\nAlice,3\nBob,5\n"
+        label: "Basic table",
+        input: "name,votes\nAlice,3\nBob,5\n",
       },
       {
-        "label": "Quoted fields",
-        "input": "city,comment\n\"New York\",\"said \"\"hi\"\", then left\"\n"
-      }
+        label: "Quoted fields",
+        input: 'city,comment\n"New York","said ""hi"", then left"\n',
+      },
     ],
-    "hint": "The result is an array of objects — one per row, keyed by the header.",
-    "emptyInputPlaceholder": "Paste CSV here…",
-    "faq": [
+    hint: "The result is an array of objects — one per row, keyed by the header.",
+    emptyInputPlaceholder: "Paste CSV here…",
+    faq: [
       {
-        "q": "Why is my CSV rejected?",
-        "a": [
-          "Almost always one of: no header row, rows with different widths, or an unterminated quoted field. The error message points at the row. This converter is strict on purpose — silent data shifts are worse than an error."
-        ]
+        q: "Why is my CSV rejected?",
+        a: [
+          "Almost always one of: no header row, rows with different widths, or an unterminated quoted field. The error message points at the row. This converter is strict on purpose — silent data shifts are worse than an error.",
+        ],
       },
       {
-        "q": "What happens to very long fields?",
-        "a": [
-          "Cells over 10,000 characters are truncated and marked with an ellipsis. The truncation is per field, so huge documents never break the page."
-        ]
+        q: "What happens to very long fields?",
+        a: [
+          "Cells over 10,000 characters are truncated and marked with an ellipsis. The truncation is per field, so huge documents never break the page.",
+        ],
       },
       {
-        "q": "Do I need quotes?",
-        "a": [
-          "Only when a field contains a comma, a quote, or a line break. Plain fields work as-is, and CRLF or LF line endings are both accepted."
-        ]
-      }
+        q: "Do I need quotes?",
+        a: [
+          "Only when a field contains a comma, a quote, or a line break. Plain fields work as-is, and CRLF or LF line endings are both accepted.",
+        ],
+      },
     ],
-    "limits": [
+    limits: [
       "Input: at most 500,000 characters.",
       "Fields: at most 100 per row.",
       "Field content: truncated at 10,000 characters.",
-      "Output: at most 2,000,000 characters."
-    ]
+      "Output: at most 2,000,000 characters.",
+    ],
   },
   {
-    "id": "color",
-    "title": "Color converter",
-    "subtitle": "Hex, RGB, and HSL in one place",
-    "category": "converters",
-    "icon": "braces",
-    "accent": "#8b5cf6",
-    "entryPoint": "tools:color",
-    "description": [
+    id: "color",
+    title: "Color converter",
+    subtitle: "Hex, RGB, and HSL in one place",
+    category: "converters",
+    icon: "braces",
+    accent: "#8b5cf6",
+    entryPoint: "tools:color",
+    description: [
       "Convert between hex (#ff8800), rgb(), and hsl() color formats, plus a handful of named colors (red, green, blue, white, black, gray, yellow, cyan, magenta, orange, purple, pink, brown).",
-      "The mode selector forces the primary output format; otherwise the input format is detected and all three forms are shown together."
+      "The mode selector forces the primary output format; otherwise the input format is detected and all three forms are shown together.",
     ],
-    "examples": [
+    examples: [
       {
-        "label": "Hex",
-        "input": "#ff8800"
+        label: "Hex",
+        input: "#ff8800",
       },
       {
-        "label": "RGB",
-        "input": "rgb(255, 136, 0)"
+        label: "RGB",
+        input: "rgb(255, 136, 0)",
       },
       {
-        "label": "HSL",
-        "input": "hsl(32, 100%, 50%)"
+        label: "HSL",
+        input: "hsl(32, 100%, 50%)",
       },
       {
-        "label": "Named",
-        "input": "orange"
-      }
+        label: "Named",
+        input: "orange",
+      },
     ],
-    "hint": "All three formats are always shown; the mode selector only changes the primary result.",
-    "params": [
+    hint: "All three formats are always shown; the mode selector only changes the primary result.",
+    params: [
       {
-        "key": "mode",
-        "label": "Output mode",
-        "defaultValue": "auto",
-        "options": [
+        key: "mode",
+        label: "Output mode",
+        defaultValue: "auto",
+        options: [
           {
-            "value": "auto",
-            "label": "Auto"
+            value: "auto",
+            label: "Auto",
           },
           {
-            "value": "to-hex",
-            "label": "Hex"
+            value: "to-hex",
+            label: "Hex",
           },
           {
-            "value": "to-rgb",
-            "label": "RGB"
+            value: "to-rgb",
+            label: "RGB",
           },
           {
-            "value": "to-hsl",
-            "label": "HSL"
-          }
-        ]
-      }
+            value: "to-hsl",
+            label: "HSL",
+          },
+        ],
+      },
     ],
-    "emptyInputPlaceholder": "e.g. #ff8800, rgb(255, 136, 0), hsl(32, 100%, 50%), orange",
-    "faq": [
+    emptyInputPlaceholder: "e.g. #ff8800, rgb(255, 136, 0), hsl(32, 100%, 50%), orange",
+    faq: [
       {
-        "q": "Which formats are accepted?",
-        "a": [
-          "3- and 6-digit hex (with or without #), rgb(r, g, b) with integer channels, hsl(h, s%, l%), and the named colors listed in the description. Alpha channels and CSS color() are not supported."
-        ]
+        q: "Which formats are accepted?",
+        a: [
+          "3- and 6-digit hex (with or without #), rgb(r, g, b) with integer channels, hsl(h, s%, l%), and the named colors listed in the description. Alpha channels and CSS color() are not supported.",
+        ],
       },
       {
-        "q": "Is the hex output uppercase?",
-        "a": [
-          "Yes, by design — #FF8800. Every output in the result block is one of the three canonical forms and copy-pastes straight into CSS."
-        ]
-      }
+        q: "Is the hex output uppercase?",
+        a: [
+          "Yes, by design — #FF8800. Every output in the result block is one of the three canonical forms and copy-pastes straight into CSS.",
+        ],
+      },
     ],
-    "limits": [
-      "Input: at most 500,000 characters."
-    ]
+    limits: ["Input: at most 500,000 characters."],
   },
   {
-    "id": "radix",
-    "title": "Number base converter",
-    "subtitle": "Convert integers between bases 2–36",
-    "category": "converters",
-    "icon": "braces",
-    "accent": "#0b7285",
-    "entryPoint": "tools:radix",
-    "description": [
-      "Type an integer in any base (2–36) and get it in every base at once. The parse rule is deterministic: 0x / 0b / 0o prefixes force hex, binary, or octal; a letter forces the smallest base that contains it (\"ff\" is hex, \"zz\" is base 36); bare digits are read as decimal.",
-      "Values are computed with JavaScript exact integer arithmetic and rejected when they exceed the max safe integer. The main result shows binary, octal, decimal, and hex, with every other base in the collapsible table."
+    id: "radix",
+    title: "Number base converter",
+    subtitle: "Convert integers between bases 2–36",
+    category: "converters",
+    icon: "braces",
+    accent: "#0b7285",
+    entryPoint: "tools:radix",
+    description: [
+      'Type an integer in any base (2–36) and get it in every base at once. The parse rule is deterministic: 0x / 0b / 0o prefixes force hex, binary, or octal; a letter forces the smallest base that contains it ("ff" is hex, "zz" is base 36); bare digits are read as decimal.',
+      "Values are computed with JavaScript exact integer arithmetic and rejected when they exceed the max safe integer. The main result shows binary, octal, decimal, and hex, with every other base in the collapsible table.",
     ],
-    "examples": [
+    examples: [
       {
-        "label": "Decimal",
-        "input": "255"
+        label: "Decimal",
+        input: "255",
       },
       {
-        "label": "Hex",
-        "input": "ff"
+        label: "Hex",
+        input: "ff",
       },
       {
-        "label": "Binary",
-        "input": "0b1010"
+        label: "Binary",
+        input: "0b1010",
       },
       {
-        "label": "Base 36",
-        "input": "zz"
-      }
+        label: "Base 36",
+        input: "zz",
+      },
     ],
-    "hint": "Letter input is read as hex; use 0b/0o prefixes for binary and octal.",
-    "emptyInputPlaceholder": "e.g. 255, ff, 0b1010, zz",
-    "faq": [
+    hint: "Letter input is read as hex; use 0b/0o prefixes for binary and octal.",
+    emptyInputPlaceholder: "e.g. 255, ff, 0b1010, zz",
+    faq: [
       {
-        "q": "How is the base of my input detected?",
-        "a": [
-          "Explicitly by prefix (0x, 0b, 0o), else by letters (\"ff\" can only be hex, \"zz\" only base 36), else as decimal. This rule is deterministic and documented so results are never a guess."
-        ]
+        q: "How is the base of my input detected?",
+        a: [
+          'Explicitly by prefix (0x, 0b, 0o), else by letters ("ff" can only be hex, "zz" only base 36), else as decimal. This rule is deterministic and documented so results are never a guess.',
+        ],
       },
       {
-        "q": "Why is \"1010\" not binary?",
-        "a": [
-          "Because bare digits are read as decimal — a string like 1010 could be valid in many bases, and this tool never guesses silently. Write 0b1010 for binary."
-        ]
+        q: 'Why is "1010" not binary?',
+        a: [
+          "Because bare digits are read as decimal — a string like 1010 could be valid in many bases, and this tool never guesses silently. Write 0b1010 for binary.",
+        ],
       },
       {
-        "q": "What is the largest supported value?",
-        "a": [
-          "The max safe integer, 9,007,199,254,740,991. Larger inputs are rejected with a clear message instead of being rounded."
-        ]
-      }
+        q: "What is the largest supported value?",
+        a: [
+          "The max safe integer, 9,007,199,254,740,991. Larger inputs are rejected with a clear message instead of being rounded.",
+        ],
+      },
     ],
-    "limits": [
-      "Input: at most 500,000 characters."
-    ]
-  }
+    limits: ["Input: at most 500,000 characters."],
+  },
 ]

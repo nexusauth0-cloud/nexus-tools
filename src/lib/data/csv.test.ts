@@ -69,7 +69,15 @@ describe("parseCsvText", () => {
   })
 
   it("never throws on hostile input", () => {
-    const attempts = ['a\n"x,y"', 'a,b\n"x","y"', 'a,"b\nc"', "...", 'a\n""\n', 'a,b,c\n1,2,"x,y"', "a,,b"]
+    const attempts = [
+      'a\n"x,y"',
+      'a,b\n"x","y"',
+      'a,"b\nc"',
+      "...",
+      'a\n""\n',
+      'a,b,c\n1,2,"x,y"',
+      "a,,b",
+    ]
     for (const attempt of attempts) {
       const result = parseCsvText(attempt)
       expect(result.ok, `should accept: ${attempt}`).toBe(true)

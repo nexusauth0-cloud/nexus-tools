@@ -43,7 +43,8 @@ export function run(input: string): CsvToolResult {
     info: {
       columns: String(columns.length),
       rows: String(rows.length),
-      numericColumn: parsed.numericColumn !== undefined ? columns[parsed.numericColumn] ?? "–" : "–",
+      numericColumn:
+        parsed.numericColumn !== undefined ? (columns[parsed.numericColumn] ?? "–") : "–",
     },
   }
 }
@@ -56,7 +57,7 @@ registerDecoration(
     "   Alice     , 3    ",
     "   Bob       , 5    ",
     "   →  [ { name, votes } … ]",
-  ].join("\n"),
+  ].join("\n")
 )
 
 export const helpArt: string = [

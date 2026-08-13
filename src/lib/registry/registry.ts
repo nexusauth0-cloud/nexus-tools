@@ -103,7 +103,10 @@ export function validateStaticConfig(config: unknown): string[] {
     if (!Array.isArray(t.description) || t.description.some((d) => typeof d !== "string")) {
       problems.push(`${at}.description must be an array of strings`)
     }
-    if (!Array.isArray(t.faq) || t.faq.some((f) => typeof f?.q !== "string" || !Array.isArray(f.a))) {
+    if (
+      !Array.isArray(t.faq) ||
+      t.faq.some((f) => typeof f?.q !== "string" || !Array.isArray(f.a))
+    ) {
       problems.push(`${at}.faq must be an array of {q, a[]}`)
     }
     if (t.params !== undefined) {
@@ -121,7 +124,10 @@ export function validateStaticConfig(config: unknown): string[] {
         }
       }
     }
-    if (t.examples !== undefined && (!Array.isArray(t.examples) || t.examples.some((e) => typeof e?.label !== "string"))) {
+    if (
+      t.examples !== undefined &&
+      (!Array.isArray(t.examples) || t.examples.some((e) => typeof e?.label !== "string"))
+    ) {
       problems.push(`${at}.examples must be an array of {label, input}`)
     }
   }

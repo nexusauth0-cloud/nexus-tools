@@ -13,7 +13,9 @@ for (const decl of STATIC_CONFIG) {
   if (!implementation) {
     // Fail loudly at import time so a config/implementation mismatch is
     // never shipped silently.
-    throw new Error(`registry: no implementation for entryPoint "${decl.entryPoint}" (tool "${decl.id}")`)
+    throw new Error(
+      `registry: no implementation for entryPoint "${decl.entryPoint}" (tool "${decl.id}")`
+    )
   }
   built.set(decl.id, {
     id: decl.id,

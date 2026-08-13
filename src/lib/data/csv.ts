@@ -27,11 +27,23 @@ const isNumeric = (text: string) => text !== "" && Number.isFinite(Number(text))
 export function parseCsvText(text: string): CsvParseResult {
   const rows = parseCsvRows(text)
   if (!rows.ok) {
-    return { ok: false, columns: [], rows: [], message: rows.message, line: rows.line, column: rows.column }
+    return {
+      ok: false,
+      columns: [],
+      rows: [],
+      message: rows.message,
+      line: rows.line,
+      column: rows.column,
+    }
   }
   const data = rows.value
   if (data.length === 0) {
-    return { ok: false, columns: [], rows: [], message: "Invalid CSV: no rows — add at least a header row." }
+    return {
+      ok: false,
+      columns: [],
+      rows: [],
+      message: "Invalid CSV: no rows — add at least a header row.",
+    }
   }
   const length = data[0]!.length
   if (length === 1 && data[0]![0] === "") {
@@ -138,9 +150,11 @@ function inferNumericColumn(columns: string[], rows: string[][]): number | undef
     }
   }
   if (candidates.length === 0) return undefined
-  return candidates.find((columnIndex) =>
-    rows.every((row) => Number.isInteger(Number(row[columnIndex]))),
-  ) ?? candidates[0]
+  return (
+    candidates.find((columnIndex) =>
+      rows.every((row) => Number.isInteger(Number(row[columnIndex])))
+    ) ?? candidates[0]
+  )
 }
 
 /**
@@ -150,10 +164,9 @@ function inferNumericColumn(columns: string[], rows: string[][]): number | undef
 export function truncateCsvCells(
   columns: string[],
   rows: string[][],
-  maxChars: number = CSV_MAX_FIELD_CHARS,
+  maxChars: number = CSV_MAX_FIELD_CHARS
 ): { columns: string[]; rows: string[][] } {
-  const cut = (value: string) =>
-    value.length <= maxChars ? value : `${value.slice(0, maxChars)}…`
+  const cut = (value: string) => (value.length <= maxChars ? value : `${value.slice(0, maxChars)}…`)
   return {
     columns: columns.map(cut),
     rows: rows.map((row) => row.map(cut)),
