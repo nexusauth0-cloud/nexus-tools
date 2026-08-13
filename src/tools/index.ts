@@ -1,4 +1,5 @@
 import type { ComponentType } from "react"
+import dynamic from "next/dynamic"
 import type { ToolManifest } from "@/shared/manifest"
 import { manifest as imageCompressorManifest } from "./image-compressor/manifest"
 import { manifest as imageResizerManifest } from "./image-resizer/manifest"
@@ -53,58 +54,16 @@ import { manifest as jsonPathManifest } from "./jsonpath/manifest"
 import { manifest as jwtGeneratorManifest } from "./jwt-generator/manifest"
 import { manifest as httpRequestManifest } from "./http-request/manifest"
 
-import ImageCompressorTool from "./image-compressor/tool"
-import ImageResizerTool from "./image-resizer/tool"
-import ImageConverterTool from "./image-converter/tool"
-import ImageCropperTool from "./image-cropper/tool"
-import ImageMetadataTool from "./image-metadata/tool"
-import BackgroundRemoverTool from "./background-remover/tool"
-import PngWebpConverterTool from "./png-webp-converter/tool"
-import WordCounterTool from "./word-counter/tool"
-import CaseConverterTool from "./case-converter/tool"
-import TextDifferTool from "./text-differ/tool"
-import LoremIpsumTool from "./lorem-ipsum/tool"
-import MarkdownPreviewTool from "./markdown-preview/tool"
-import SlugGeneratorTool from "./slug-generator/tool"
-import JsonFormatterTool from "./json-formatter/tool"
-import JsonValidatorTool from "./json-validator/tool"
-import Base64EncoderTool from "./base64-encoder/tool"
-import HtmlEntityEncoderTool from "./html-entity-encoder/tool"
-import RegexTesterTool from "./regex-tester/tool"
-import HashGeneratorTool from "./hash-generator/tool"
-import UuidGeneratorTool from "./uuid-generator/tool"
-import JsonCsvConverterTool from "./json-csv-converter/tool"
-import EpochConverterTool from "./epoch-converter/tool"
-import UnitConverterTool from "./unit-converter/tool"
-import UrlEncoderTool from "./url-encoder/tool"
-import PasswordGeneratorTool from "./password-generator/tool"
-import DeadlineCalculatorTool from "./deadline-calculator/tool"
-import PomodoroTimerTool from "./pomodoro-timer/tool"
-import KeywordDensityTool from "./keyword-density/tool"
-import TextSummarizerTool from "./text-summarizer/tool"
-import ParaphraseToolTool from "./paraphrase-tool/tool"
-import CurrencyConverterTool from "./currency-converter/tool"
-import EmailHeaderAnalyzerTool from "./email-header-analyzer/tool"
-import SvgOptimizerTool from "./svg-optimizer/tool"
-import ColorExtractorTool from "./color-extractor/tool"
-import JwtDecoderTool from "./jwt-decoder/tool"
-import TimestampConverterTool from "./timestamp-converter/tool"
-import ColorConverterTool from "./color-converter/tool"
-import PdfMetadataTool from "./pdf-metadata/tool"
-import PdfPageCounterTool from "./pdf-page-counter/tool"
-import PdfToTextTool from "./pdf-to-text/tool"
-import TextToPdfTool from "./text-to-pdf/tool"
-import FileChecksumTool from "./file-checksum/tool"
-import HttpHeadersTool from "./http-headers/tool"
-import MetaTagAnalyzerTool from "./meta-tag-analyzer/tool"
-import RobotsTxtCheckerTool from "./robots-txt-checker/tool"
-import SitemapCheckerTool from "./sitemap-checker/tool"
-import UrlParserTool from "./url-parser/tool"
-import QrGeneratorTool from "./qr-generator/tool"
-import QrReaderTool from "./qr-reader/tool"
-import JsonPathTool from "./jsonpath/tool"
-import JwtGeneratorTool from "./jwt-generator/tool"
-import HttpRequestTool from "./http-request/tool"
+/**
+ * Lazy component registry.
+ *
+ * Tool components are intentionally NOT statically imported: tools carry
+ * heavy browser libraries (pdfjs-dist, jsqr, qrcode, marked …) that would
+ * otherwise ship in the app shell on every page. Each tool's component is
+ * loaded on demand with next/dynamic (literal import specifiers so webpack
+ * can statically analyze every entry), and the bundle for /tools/<slug>
+ * includes only that tool's dependencies.
+ */
 
 export const registeredToolManifests: ToolManifest[] = [
   imageCompressorManifest,
@@ -162,56 +121,192 @@ export const registeredToolManifests: ToolManifest[] = [
 ]
 
 export const registeredToolComponents: Record<string, ComponentType<{ className?: string }>> = {
-  "image-compressor": ImageCompressorTool,
-  "image-resizer": ImageResizerTool,
-  "image-converter": ImageConverterTool,
-  "image-cropper": ImageCropperTool,
-  "image-metadata": ImageMetadataTool,
-  "background-remover": BackgroundRemoverTool,
-  "png-webp-converter": PngWebpConverterTool,
-  "word-counter": WordCounterTool,
-  "case-converter": CaseConverterTool,
-  "text-differ": TextDifferTool,
-  "lorem-ipsum": LoremIpsumTool,
-  "markdown-preview": MarkdownPreviewTool,
-  "slug-generator": SlugGeneratorTool,
-  "json-formatter": JsonFormatterTool,
-  "json-validator": JsonValidatorTool,
-  "base64-encoder": Base64EncoderTool,
-  "html-entity-encoder": HtmlEntityEncoderTool,
-  "regex-tester": RegexTesterTool,
-  "hash-generator": HashGeneratorTool,
-  "uuid-generator": UuidGeneratorTool,
-  "json-csv-converter": JsonCsvConverterTool,
-  "epoch-converter": EpochConverterTool,
-  "unit-converter": UnitConverterTool,
-  "url-encoder": UrlEncoderTool,
-  "password-generator": PasswordGeneratorTool,
-  "deadline-calculator": DeadlineCalculatorTool,
-  "pomodoro-timer": PomodoroTimerTool,
-  "keyword-density": KeywordDensityTool,
-  "text-summarizer": TextSummarizerTool,
-  "paraphrase-tool": ParaphraseToolTool,
-  "currency-converter": CurrencyConverterTool,
-  "email-header-analyzer": EmailHeaderAnalyzerTool,
-  "svg-optimizer": SvgOptimizerTool,
-  "color-extractor": ColorExtractorTool,
-  "jwt-decoder": JwtDecoderTool,
-  "timestamp-converter": TimestampConverterTool,
-  "color-converter": ColorConverterTool,
-  "pdf-metadata": PdfMetadataTool,
-  "pdf-page-counter": PdfPageCounterTool,
-  "pdf-to-text": PdfToTextTool,
-  "text-to-pdf": TextToPdfTool,
-  "file-checksum": FileChecksumTool,
-  "http-headers": HttpHeadersTool,
-  "meta-tag-analyzer": MetaTagAnalyzerTool,
-  "robots-txt-checker": RobotsTxtCheckerTool,
-  "sitemap-checker": SitemapCheckerTool,
-  "url-parser": UrlParserTool,
-  "qr-generator": QrGeneratorTool,
-  "qr-reader": QrReaderTool,
-  jsonpath: JsonPathTool,
-  "jwt-generator": JwtGeneratorTool,
-  "http-request": HttpRequestTool,
+  "background-remover": dynamic(
+    () => import("./background-remover/tool").then((module) => module.default),
+    { ssr: true }
+  ),
+  "base64-encoder": dynamic(
+    () => import("./base64-encoder/tool").then((module) => module.default),
+    { ssr: true }
+  ),
+  "case-converter": dynamic(
+    () => import("./case-converter/tool").then((module) => module.default),
+    { ssr: true }
+  ),
+  "color-converter": dynamic(
+    () => import("./color-converter/tool").then((module) => module.default),
+    { ssr: true }
+  ),
+  "color-extractor": dynamic(
+    () => import("./color-extractor/tool").then((module) => module.default),
+    { ssr: true }
+  ),
+  "currency-converter": dynamic(
+    () => import("./currency-converter/tool").then((module) => module.default),
+    { ssr: true }
+  ),
+  "deadline-calculator": dynamic(
+    () => import("./deadline-calculator/tool").then((module) => module.default),
+    { ssr: true }
+  ),
+  "email-header-analyzer": dynamic(
+    () => import("./email-header-analyzer/tool").then((module) => module.default),
+    { ssr: true }
+  ),
+  "epoch-converter": dynamic(
+    () => import("./epoch-converter/tool").then((module) => module.default),
+    { ssr: true }
+  ),
+  "file-checksum": dynamic(() => import("./file-checksum/tool").then((module) => module.default), {
+    ssr: true,
+  }),
+  "hash-generator": dynamic(
+    () => import("./hash-generator/tool").then((module) => module.default),
+    { ssr: true }
+  ),
+  "html-entity-encoder": dynamic(
+    () => import("./html-entity-encoder/tool").then((module) => module.default),
+    { ssr: true }
+  ),
+  "http-headers": dynamic(() => import("./http-headers/tool").then((module) => module.default), {
+    ssr: true,
+  }),
+  "http-request": dynamic(() => import("./http-request/tool").then((module) => module.default), {
+    ssr: true,
+  }),
+  "image-compressor": dynamic(
+    () => import("./image-compressor/tool").then((module) => module.default),
+    { ssr: true }
+  ),
+  "image-converter": dynamic(
+    () => import("./image-converter/tool").then((module) => module.default),
+    { ssr: true }
+  ),
+  "image-cropper": dynamic(() => import("./image-cropper/tool").then((module) => module.default), {
+    ssr: true,
+  }),
+  "image-metadata": dynamic(
+    () => import("./image-metadata/tool").then((module) => module.default),
+    { ssr: true }
+  ),
+  "image-resizer": dynamic(() => import("./image-resizer/tool").then((module) => module.default), {
+    ssr: true,
+  }),
+  "json-csv-converter": dynamic(
+    () => import("./json-csv-converter/tool").then((module) => module.default),
+    { ssr: true }
+  ),
+  "json-formatter": dynamic(
+    () => import("./json-formatter/tool").then((module) => module.default),
+    { ssr: true }
+  ),
+  "json-validator": dynamic(
+    () => import("./json-validator/tool").then((module) => module.default),
+    { ssr: true }
+  ),
+  jsonpath: dynamic(() => import("./jsonpath/tool").then((module) => module.default), {
+    ssr: true,
+  }),
+  "jwt-decoder": dynamic(() => import("./jwt-decoder/tool").then((module) => module.default), {
+    ssr: true,
+  }),
+  "jwt-generator": dynamic(() => import("./jwt-generator/tool").then((module) => module.default), {
+    ssr: true,
+  }),
+  "keyword-density": dynamic(
+    () => import("./keyword-density/tool").then((module) => module.default),
+    { ssr: true }
+  ),
+  "lorem-ipsum": dynamic(() => import("./lorem-ipsum/tool").then((module) => module.default), {
+    ssr: true,
+  }),
+  "markdown-preview": dynamic(
+    () => import("./markdown-preview/tool").then((module) => module.default),
+    { ssr: true }
+  ),
+  "meta-tag-analyzer": dynamic(
+    () => import("./meta-tag-analyzer/tool").then((module) => module.default),
+    { ssr: true }
+  ),
+  "paraphrase-tool": dynamic(
+    () => import("./paraphrase-tool/tool").then((module) => module.default),
+    { ssr: true }
+  ),
+  "password-generator": dynamic(
+    () => import("./password-generator/tool").then((module) => module.default),
+    { ssr: true }
+  ),
+  "pdf-metadata": dynamic(() => import("./pdf-metadata/tool").then((module) => module.default), {
+    ssr: true,
+  }),
+  "pdf-page-counter": dynamic(
+    () => import("./pdf-page-counter/tool").then((module) => module.default),
+    { ssr: true }
+  ),
+  "pdf-to-text": dynamic(() => import("./pdf-to-text/tool").then((module) => module.default), {
+    ssr: true,
+  }),
+  "png-webp-converter": dynamic(
+    () => import("./png-webp-converter/tool").then((module) => module.default),
+    { ssr: true }
+  ),
+  "pomodoro-timer": dynamic(
+    () => import("./pomodoro-timer/tool").then((module) => module.default),
+    { ssr: true }
+  ),
+  "qr-generator": dynamic(() => import("./qr-generator/tool").then((module) => module.default), {
+    ssr: true,
+  }),
+  "qr-reader": dynamic(() => import("./qr-reader/tool").then((module) => module.default), {
+    ssr: true,
+  }),
+  "regex-tester": dynamic(() => import("./regex-tester/tool").then((module) => module.default), {
+    ssr: true,
+  }),
+  "robots-txt-checker": dynamic(
+    () => import("./robots-txt-checker/tool").then((module) => module.default),
+    { ssr: true }
+  ),
+  "sitemap-checker": dynamic(
+    () => import("./sitemap-checker/tool").then((module) => module.default),
+    { ssr: true }
+  ),
+  "slug-generator": dynamic(
+    () => import("./slug-generator/tool").then((module) => module.default),
+    { ssr: true }
+  ),
+  "svg-optimizer": dynamic(() => import("./svg-optimizer/tool").then((module) => module.default), {
+    ssr: true,
+  }),
+  "text-differ": dynamic(() => import("./text-differ/tool").then((module) => module.default), {
+    ssr: true,
+  }),
+  "text-summarizer": dynamic(
+    () => import("./text-summarizer/tool").then((module) => module.default),
+    { ssr: true }
+  ),
+  "text-to-pdf": dynamic(() => import("./text-to-pdf/tool").then((module) => module.default), {
+    ssr: true,
+  }),
+  "timestamp-converter": dynamic(
+    () => import("./timestamp-converter/tool").then((module) => module.default),
+    { ssr: true }
+  ),
+  "unit-converter": dynamic(
+    () => import("./unit-converter/tool").then((module) => module.default),
+    { ssr: true }
+  ),
+  "url-encoder": dynamic(() => import("./url-encoder/tool").then((module) => module.default), {
+    ssr: true,
+  }),
+  "url-parser": dynamic(() => import("./url-parser/tool").then((module) => module.default), {
+    ssr: true,
+  }),
+  "uuid-generator": dynamic(
+    () => import("./uuid-generator/tool").then((module) => module.default),
+    { ssr: true }
+  ),
+  "word-counter": dynamic(() => import("./word-counter/tool").then((module) => module.default), {
+    ssr: true,
+  }),
 }

@@ -9,6 +9,8 @@ import { trackToolSearch } from "@/lib/analytics"
 import type { ToolManifest } from "@/shared/manifest"
 import { ToolCard } from "@/components/design-system/tool-card"
 import { Input } from "@/components/ui/input"
+import { useFavoritesStore } from "@/store/favorites-store"
+import { RecentlyUsed } from "./recently-used"
 import {
   Select,
   SelectContent,
@@ -19,28 +21,7 @@ import {
 import { Switch } from "@/components/ui/switch"
 import { Label } from "@/components/ui/label"
 
-const subscribe = () => () => {}
-
-function useFavoritesFromStorage(): string[] {
-  return (
-    React.useSyncExternalStore(
-      subscribe,
-      () => {
-        if (typeof window === "undefined") return null
-        const stored = window.localStorage.getItem("nexus-favorites")
-        if (!stored) return null
-        try {
-          return (
-            (JSON.parse(stored) as { state?: { favorites?: string[] } }).state?.favorites ?? null
-          )
-        } catch {
-          return null
-        }
-      },
-      () => null
-    ) ?? []
-  )
-}
+const useFavorites = () => useFavoritesStore((state) => state.favorites)
 
 const sortOptions: { value: ToolSort; label: string }[] = [
   { value: "popularity", label: "Most popular" },
@@ -53,7 +34,7 @@ export function ToolsDirectory() {
   const [category, setCategory] = React.useState<string>("all")
   const [sort, setSort] = React.useState<ToolSort>("popularity")
   const [favoritesOnly, setFavoritesOnly] = React.useState(false)
-  const favorites = useFavoritesFromStorage()
+  const favorites = useFavorites()
   const deferredQuery = React.useDeferredValue(query)
   const categories = React.useMemo(() => getCategories(), [])
 
@@ -75,6 +56,7 @@ export function ToolsDirectory() {
 
   return (
     <div className="flex flex-col gap-8">
+      <RecentlyUsed />
       <div className="flex flex-wrap items-end gap-4">
         <div className="relative min-w-0 flex-1 basis-64">
           <Search

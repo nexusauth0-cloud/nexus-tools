@@ -37,9 +37,7 @@ export default function TextToPdf() {
   const [margins, setMargins] = useState<"narrow" | "normal" | "wide">("normal")
   const [busy, setBusy] = useState(false)
   const [prevMeta, setPrevMeta] = useState<Uint8Array | null>(null)
-  const [downloadUrl, setDownloadUrl] = useState<string | null>(() =>
-    typeof window === "undefined" ? null : null
-  )
+  const [downloadUrl, setDownloadUrl] = useState<string | null>(null)
 
   const { status, result, error, run, reset } = useTool(textToPdfEngine)
 
