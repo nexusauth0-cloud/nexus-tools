@@ -85,6 +85,9 @@ describe("parseColor", () => {
     expect(parseColor("hsl(120, 50%, 50%)")?.rgb).toEqual({ r: 64, g: 191, b: 64 })
     expect(parseColor("hsv(120, 50%, 50%)")?.rgb).toEqual({ r: 64, g: 128, b: 64 })
     expect(parseColor("cmyk(0%, 20%, 100%, 0%)")?.rgb).toEqual({ r: 255, g: 204, b: 0 })
+    expect(parseColor("orange")?.rgb).toEqual({ r: 255, g: 165, b: 0 })
+    expect(parseColor("ORANGE")?.rgb).toEqual({ r: 255, g: 165, b: 0 })
+    expect(parseColor("grey")?.rgb).toEqual(parseColor("gray")?.rgb)
   })
 
   it("rejects invalid input", () => {
@@ -122,6 +125,12 @@ describe("colorConverterEngine", () => {
     expect(rgb.output.hex).toBe("#ffffff")
     const cmyk = await colorConverterEngine.run({ color: "cmyk(0%, 0%, 0%, 100%)" })
     expect(cmyk.output.hex).toBe("#000000")
+  })
+
+  it("accepts named colors and normalizes to lowercase hex", async () => {
+    const result = await colorConverterEngine.run({ color: "orange" })
+    expect(result.output.hex).toBe("#ffa500")
+    expect(result.output.rgb).toBe("rgb(255, 165, 0)")
   })
 
   it("round-trips hsl input through rgb and back", async () => {

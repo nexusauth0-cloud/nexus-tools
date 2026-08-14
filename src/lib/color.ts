@@ -187,6 +187,23 @@ export function cmykToRgb({ c, m, y, k }: CmykColor): RgbColor | null {
   }
 }
 
+const NAMED_COLORS: Record<string, RgbColor> = {
+  red: { r: 255, g: 0, b: 0 },
+  green: { r: 0, g: 128, b: 0 },
+  blue: { r: 0, g: 0, b: 255 },
+  black: { r: 0, g: 0, b: 0 },
+  white: { r: 255, g: 255, b: 255 },
+  gray: { r: 128, g: 128, b: 128 },
+  grey: { r: 128, g: 128, b: 128 },
+  yellow: { r: 255, g: 255, b: 0 },
+  cyan: { r: 0, g: 255, b: 255 },
+  magenta: { r: 255, g: 0, b: 255 },
+  orange: { r: 255, g: 165, b: 0 },
+  purple: { r: 128, g: 0, b: 128 },
+  pink: { r: 255, g: 192, b: 203 },
+  brown: { r: 165, g: 42, b: 42 },
+}
+
 const RGB_FUNCTION = /^rgb\(\s*(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(\d{1,3})\s*\)$/i
 const HSL_FUNCTION = /^hsl\(\s*([\d.]+)\s*,\s*([\d.]+)%\s*,\s*([\d.]+)%\s*\)$/i
 const HSV_FUNCTION = /^hsv\(\s*([\d.]+)\s*,\s*([\d.]+)%\s*,\s*([\d.]+)%\s*\)$/i
@@ -202,6 +219,9 @@ export interface ParsedColor {
 export function parseColor(value: string): ParsedColor | null {
   const input = value.trim()
   if (input === "") return null
+
+  const named = NAMED_COLORS[input.toLowerCase()]
+  if (named) return { source: rgbToHex(named), rgb: named }
 
   const hex = hexToRgb(input)
   if (hex) return { source: rgbToHex(hex), rgb: hex }

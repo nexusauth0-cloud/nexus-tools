@@ -6,15 +6,21 @@ import {
   textField,
   ToolExecutionError,
 } from "@/lib/tool-engine"
-import { byteSize, countJsonEntries, parseJsonWithLocation } from "@/lib/json"
+import {
+  binarySafeStringify,
+  byteSize,
+  countJsonEntries,
+  describeJsonCounts,
+  parseStrictJson,
+} from "@/lib/json"
 
 /**
- * JSON Formatter engine — the demo tool for the shared tool engine.
- * All logic lives here (pure, testable); the React component is a thin
- * view over `jsonFormatterEngine`.
+ * JSON Formatter engine — format, minify, validate, or binary-escape
+ * strict JSON. All logic lives here (pure, testable); the React component
+ * is a thin view over `jsonFormatterEngine`.
  */
 
-export type JsonMode = "pretty" | "minified" | "validated"
+export type JsonMode = "pretty" | "minified" | "validated" | "binary"
 
 export interface JsonFormatterInput {
   json: string
@@ -31,7 +37,7 @@ export interface JsonFormatterOutput {
 
 const schema = z.object({
   json: textField({ min: 1, max: undefined }),
-  mode: z.enum(["pretty", "minified", "validated"]).default("pretty"),
+  mode: z.enum(["pretty", "minified", "validated", "binary"]).default("pretty"),
   indent: integerField(2, 4).default(2),
 })
 
@@ -39,7 +45,7 @@ export const jsonFormatterEngine = createToolEngine<typeof schema, JsonFormatter
   toolId: "json-formatter",
   schema,
   process: (input) => {
-    const parsed = parseJsonWithLocation(input.json)
+    const parsed = parseStrictJson(input.json)
     if (!parsed.ok) throw new ToolExecutionError("VALIDATION", parsed.message)
 
     let text: string
@@ -51,7 +57,10 @@ export const jsonFormatterEngine = createToolEngine<typeof schema, JsonFormatter
         text = JSON.stringify(parsed.value, null, input.indent)
         break
       case "validated":
-        text = input.json.trim()
+        text = describeJsonCounts(parsed.value)
+        break
+      case "binary":
+        text = binarySafeStringify(parsed.value)
         break
     }
     return {

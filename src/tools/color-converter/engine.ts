@@ -31,7 +31,7 @@ export const colorConverterEngine = createToolEngine<typeof schema, ColorOutput>
     if (!parsed) {
       throw new ToolExecutionError(
         "VALIDATION",
-        "Enter a color as HEX (#rgb or #rrggbb), rgb(r, g, b), hsl(h, s%, l%), hsv(h, s%, v%) or cmyk(c%, m%, y%, k%)."
+        'Enter a color as HEX (#rgb or #rrggbb), rgb(r, g, b), hsl(h, s%, l%), hsv(h, s%, v%), cmyk(c%, m%, y%, k%) or a named color like "orange".'
       )
     }
 

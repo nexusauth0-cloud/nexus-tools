@@ -107,6 +107,35 @@ const nextConfig: NextConfig = {
   experimental: {
     optimizePackageImports: ["lucide-react", "framer-motion"],
   },
+  async redirects() {
+    return [
+      {
+        source: "/t/json",
+        destination: "/tools/json-formatter",
+        permanent: true,
+      },
+      {
+        source: "/t/color",
+        destination: "/tools/color-converter",
+        permanent: true,
+      },
+      {
+        source: "/t/yaml",
+        destination: "/tools/yaml",
+        permanent: true,
+      },
+      {
+        source: "/t/csv",
+        destination: "/tools/csv",
+        permanent: true,
+      },
+      {
+        source: "/t/radix",
+        destination: "/tools/radix",
+        permanent: true,
+      },
+    ]
+  },
 }
 
 export default pwa(nextConfig)

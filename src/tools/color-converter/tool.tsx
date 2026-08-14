@@ -75,7 +75,7 @@ export default function ColorConverter() {
         <CodeEditor
           id={`${manifest.slug}-input`}
           label="Color"
-          placeholder="#ff6600 or rgb(255, 102, 0) or hsl(24, 100%, 50%)…"
+          placeholder="#ff6600, rgb(255, 102, 0), hsl(24, 100%, 50%) or orange…"
           value={input}
           onChange={(event) => setInput(event.target.value)}
           onKeyDown={handleKeyDown}

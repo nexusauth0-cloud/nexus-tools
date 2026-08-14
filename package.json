@@ -13,9 +13,7 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:watch": "vitest",
-    "artwork": "node scripts/build-help-artwork.mjs",
-    "icons": "node scripts/generate-pwa-icons.mjs",
-    "static": "node scripts/build-static.mjs"
+    "icons": "node scripts/generate-pwa-icons.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.7.1",

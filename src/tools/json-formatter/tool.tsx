@@ -22,6 +22,7 @@ const MODES = [
   { value: "pretty" as const, label: "Pretty" },
   { value: "minified" as const, label: "Minify" },
   { value: "validated" as const, label: "Validate" },
+  { value: "binary" as const, label: "Binary-safe" },
 ]
 
 const INDENTS = [2, 4, 8]

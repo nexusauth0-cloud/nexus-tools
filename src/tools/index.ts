@@ -9,6 +9,9 @@ import { manifest as imageMetadataManifest } from "./image-metadata/manifest"
 import { manifest as backgroundRemoverManifest } from "./background-remover/manifest"
 import { manifest as pngWebpConverterManifest } from "./png-webp-converter/manifest"
 import { manifest as wordCounterManifest } from "./word-counter/manifest"
+import { manifest as yamlManifest } from "./yaml/manifest"
+import { manifest as radixManifest } from "./radix/manifest"
+import { manifest as csvManifest } from "./csv/manifest"
 import { manifest as caseConverterManifest } from "./case-converter/manifest"
 import { manifest as textDifferManifest } from "./text-differ/manifest"
 import { manifest as loremIpsumManifest } from "./lorem-ipsum/manifest"
@@ -87,6 +90,9 @@ export const registeredToolManifests: ToolManifest[] = [
   hashGeneratorManifest,
   uuidGeneratorManifest,
   jsonCsvConverterManifest,
+  yamlManifest,
+  radixManifest,
+  csvManifest,
   epochConverterManifest,
   unitConverterManifest,
   urlEncoderManifest,
@@ -141,6 +147,7 @@ export const registeredToolComponents: Record<string, ComponentType<{ className?
     () => import("./color-extractor/tool").then((module) => module.default),
     { ssr: true }
   ),
+  csv: dynamic(() => import("./csv/tool").then((module) => module.default), { ssr: true }),
   "currency-converter": dynamic(
     () => import("./currency-converter/tool").then((module) => module.default),
     { ssr: true }
@@ -260,6 +267,7 @@ export const registeredToolComponents: Record<string, ComponentType<{ className?
   "qr-reader": dynamic(() => import("./qr-reader/tool").then((module) => module.default), {
     ssr: true,
   }),
+  radix: dynamic(() => import("./radix/tool").then((module) => module.default), { ssr: true }),
   "regex-tester": dynamic(() => import("./regex-tester/tool").then((module) => module.default), {
     ssr: true,
   }),
@@ -309,4 +317,5 @@ export const registeredToolComponents: Record<string, ComponentType<{ className?
   "word-counter": dynamic(() => import("./word-counter/tool").then((module) => module.default), {
     ssr: true,
   }),
+  yaml: dynamic(() => import("./yaml/tool").then((module) => module.default), { ssr: true }),
 }

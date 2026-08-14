@@ -98,3 +98,28 @@ export function hasNonFiniteNumber(value: unknown): boolean {
   }
   return false
 }
+
+/** Round-trip a non-finite number JSON.stringify would drop to a limited literal (never null). */
+export const NON_FINITE_LITERALS: Record<string, string> = {
+  Infinity: "Infinity",
+  "-Infinity": "-Infinity",
+  NaN: "NaN",
+} as const
+
+/** Normalize non-JSON-serializable numbers ("Infinity"/"-Infinity"/"NaN") to safe literals. */
+export function normalizeNonFinite(value: unknown): unknown {
+  if (typeof value === "number") {
+    if (Number.isFinite(value)) return value
+    const literal = NON_FINITE_LITERALS[String(value)]
+    return literal ?? null
+  }
+  if (Array.isArray(value)) return value.map(normalizeNonFinite)
+  if (value !== null && typeof value === "object") {
+    const out: Record<string, unknown> = {}
+    for (const [key, child] of Object.entries(value)) {
+      out[key] = normalizeNonFinite(child)
+    }
+    return out
+  }
+  return value
+}

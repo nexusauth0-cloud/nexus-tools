@@ -18,9 +18,41 @@ describe("jsonFormatterEngine", () => {
     expect(output.text).not.toContain("\n")
   })
 
-  it("validates without reformatting", async () => {
+  it("validates with a document summary", async () => {
     const { output } = await jsonFormatterEngine.run({ json: INPUT, mode: "validated", indent: 2 })
-    expect(output.text).toBe(INPUT)
+    expect(output.text).toMatch(/^Valid JSON: .* objects?/)
+    expect(output.text).toContain("1 array")
+    expect(output.text).toContain("3 strings")
+  })
+
+  it("escapes control characters in binary-safe mode and round-trips", async () => {
+    const withUnicode = '{"emoji":"🚀","tab":"a\\tb"}'
+    const { output } = await jsonFormatterEngine.run({
+      json: withUnicode,
+      mode: "binary",
+      indent: 2,
+    })
+    expect(output.text).toContain("\\t")
+    expect(output.text).toContain("🚀")
+    expect(JSON.parse(output.text)).toEqual(JSON.parse(withUnicode))
+  })
+
+  it("rejects nesting beyond the depth cap", async () => {
+    const deep = "[".repeat(200) + "0" + "]".repeat(200)
+    const error = await jsonFormatterEngine
+      .run({ json: deep, mode: "pretty", indent: 2 })
+      .catch((e: unknown) => e)
+    expect(error).toMatchObject({ code: "VALIDATION" })
+    expect((error as { toUserMessage(): string }).toUserMessage()).toContain("too deep")
+  })
+
+  it("rejects non-strict JSON (comments, trailing commas)", async () => {
+    for (const bad of ["// c\n1", '{"a": 1,}', "{'a': 1}"]) {
+      const error = await jsonFormatterEngine
+        .run({ json: bad, mode: "pretty", indent: 2 })
+        .catch((e: unknown) => e)
+      expect(error).toMatchObject({ code: "VALIDATION" })
+    }
   })
 
   it("applies default mode and indent", async () => {
