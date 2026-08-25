@@ -1,5 +1,7 @@
 # NEXUS Tools
 
+[![CI](https://github.com/nexusauth0-cloud/nexus-tools/actions/workflows/ci.yml/badge.svg)](https://github.com/nexusauth0-cloud/nexus-tools/actions/workflows/ci.yml)
+
 A suite of 55 browser-based tools — image, text, developer, converter, SEO, document, finance, AI, and productivity utilities — built as a single Next.js application on a shared tool-engine architecture.
 
 Every tool runs client-first: processing happens in the browser wherever technically possible, so results are instant and files stay on the device.
