@@ -57,21 +57,38 @@ Planned categories (`video`, `audio`, `social`) are already defined in the categ
 
 ## Architecture
 
-```text
-src/
-├── tools/<slug>/          One folder per tool:
-│   ├── manifest.ts        Declarative metadata (slug, category, SEO,
-│   │                      keywords, FAQ) via defineToolManifest()
-│   └── tool.tsx           The actual UI, dynamically imported
-├── tools/index.ts         Registry: manifests + dynamic imports
-├── lib/tool-engine/       Shared engine: routing, resolution, rendering
-├── lib/platform/          Search, categories, related tools, breadcrumbs,
-│                          validation, SEO helpers (+ test suites)
-├── shared/                Category presentation, icons, navigation
-├── data/                  Editorial category metadata
-└── app/                   App Router pages: /tools/[slug],
-                           /categories/[slug], /blog, /about, ...
+```mermaid
+graph TB
+    subgraph App["Next.js App Router"]
+        A["/tools/[slug]"] --> B["lib/tool-engine/"]
+        C["/categories/[slug]"] --> D["lib/platform/"]
+    end
+
+    subgraph Engine["Tool Engine"]
+        B --> E[manifest.ts — slug, SEO, keywords]
+        B --> F[tool.tsx — dynamic import]
+        B --> G[Registry — index.ts]
+    end
+
+    subgraph Platform["Platform Services"]
+        D --> H[search.ts]
+        D --> I[categories.ts]
+        D --> J[related.ts]
+        D --> K[breadcrumbs.ts]
+        D --> L[SEO helpers + tests]
+    end
+
+    subgraph UI["Shared UI"]
+        M[Category presentation] --> N[Icons + Navigation]
+    end
+
+    E --> F
+    F --> O[Rendered tool page]
+    H --> A
+    I --> C
 ```
+
+Each tool lives in its own folder under `tools/<slug>/` with a declarative `manifest.ts` and a dynamically-imported `tool.tsx`. The engine handles routing and rendering; the platform layer provides search, categories, and SEO.
 
 Key decisions:
 
