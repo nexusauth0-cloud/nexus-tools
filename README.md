@@ -33,6 +33,28 @@ The interesting engineering is not any single tool; it's the platform that makes
 
 Planned categories (`video`, `audio`, `social`) are already defined in the category system and will fill in over time.
 
+## Product Preview
+
+### Tool Dashboard
+
+![Nexus Tools homepage showing tool discovery grid with category filters](docs/screenshots/home-dashboard.jpg)
+
+### JSON Formatter
+
+![JSON Formatter tool with syntax highlighting, tree view, and minify/beautify controls](docs/screenshots/json-formatter.jpg)
+
+### Categories
+
+![Browse by category — Image Tools, Developer Tools, Converters, Productivity, SEO Tools](docs/screenshots/categories.jpg)
+
+### HTTP Request Tool
+
+![HTTP Request tool showing method selector, headers, body, and response panels](docs/screenshots/http-request.jpg)
+
+### Mobile Experience
+
+![Tool dashboard on mobile viewport with category carousel](docs/screenshots/home-mobile.jpg)
+
 ## Architecture
 
 ```text
