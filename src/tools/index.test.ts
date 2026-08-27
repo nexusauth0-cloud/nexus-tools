@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest"
-import { registeredToolComponents, registeredToolManifests } from "./index"
+import { registeredToolManifests } from "./index"
+import { registeredToolComponents } from "./components"
 
 describe("tool registry", () => {
   it("registers every manifest with a component under its slug", () => {
