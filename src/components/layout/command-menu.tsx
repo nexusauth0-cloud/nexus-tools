@@ -19,7 +19,6 @@ import { useKeyboardShortcut } from "@/hooks/use-keyboard-shortcut"
 import { useRecentsStore } from "@/store/recents-store"
 import { useFavoritesStore } from "@/store/favorites-store"
 import { getAllTools } from "@/lib/platform"
-import { cn } from "@/lib"
 
 const typeMeta: Record<SearchItemType, { label: string; icon: typeof Wrench }> = {
   page: { label: "Pages", icon: LayoutGrid },
@@ -98,9 +97,7 @@ export function CommandMenu() {
           <>
             {personalized.recents.length > 0 && (
               <CommandGroup heading="Recently used">
-                {personalized.recents.map((tool) => {
-                  const ItemIcon = resolveIcon(tool.icon)
-                  return (
+                {personalized.recents.map((tool) => (
                     <CommandItem
                       key={tool.slug}
                       value={`recent ${tool.title} ${tool.shortDescription}`}
@@ -118,15 +115,12 @@ export function CommandMenu() {
                         aria-hidden="true"
                       />
                     </CommandItem>
-                  )
-                })}
+                ))}
               </CommandGroup>
             )}
             {personalized.favorites.length > 0 && (
               <CommandGroup heading="Favorites">
-                {personalized.favorites.map((tool) => {
-                  const ItemIcon = resolveIcon(tool.icon)
-                  return (
+                {personalized.favorites.map((tool) => (
                     <CommandItem
                       key={tool.slug}
                       value={`favorite ${tool.title} ${tool.shortDescription}`}
@@ -144,8 +138,7 @@ export function CommandMenu() {
                         aria-hidden="true"
                       />
                     </CommandItem>
-                  )
-                })}
+                ))}
               </CommandGroup>
             )}
           </>

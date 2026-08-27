@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link"
-import { ArrowRight, Clock, Star } from "lucide-react"
+import { ArrowRight } from "lucide-react"
 import { useRecentsStore } from "@/store/recents-store"
 import { useFavoritesStore } from "@/store/favorites-store"
 import { getAllTools } from "@/lib/platform"
