@@ -1,4 +1,5 @@
 import { Hero } from "@/components/home/hero"
+import { PersonalizedSection } from "@/components/home/personalized-section"
 import { CategoriesSection } from "@/components/home/categories-section"
 import { FeaturedToolsSection } from "@/components/home/featured-tools-section"
 import { TrendingToolsSection } from "@/components/home/trending-tools-section"
@@ -13,6 +14,7 @@ export default function HomePage() {
   return (
     <>
       <Hero />
+      <PersonalizedSection />
       <CategoriesSection />
       <FeaturedToolsSection />
       <TrendingToolsSection />
