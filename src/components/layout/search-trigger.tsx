@@ -1,8 +1,9 @@
 "use client"
 
-import { Search } from "lucide-react"
+import { Search, Star } from "lucide-react"
 import { cn } from "@/lib"
 import { useSearchStore } from "@/store/search-store"
+import { useFavoritesStore } from "@/store/favorites-store"
 import { Kbd } from "@/components/design-system/kbd"
 
 interface SearchTriggerProps {
@@ -12,6 +13,7 @@ interface SearchTriggerProps {
 
 export function SearchTrigger({ variant = "header", className }: SearchTriggerProps) {
   const setOpen = useSearchStore((state) => state.setOpen)
+  const favoritesCount = useFavoritesStore((state) => state.favorites.length)
 
   if (variant === "hero") {
     return (
@@ -49,6 +51,12 @@ export function SearchTrigger({ variant = "header", className }: SearchTriggerPr
     >
       <Search className="size-4" aria-hidden="true" />
       <span className="hidden xl:inline">Search</span>
+      {favoritesCount > 0 && (
+        <span className="inline-flex items-center gap-1 rounded-full bg-gold/15 px-1.5 py-0.5 text-[10px] font-medium text-gold">
+          <Star className="size-2.5 fill-gold" aria-hidden="true" />
+          {favoritesCount}
+        </span>
+      )}
       <Kbd className="hidden lg:inline-flex">⌘K</Kbd>
     </button>
   )
