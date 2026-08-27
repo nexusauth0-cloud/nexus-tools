@@ -9,6 +9,7 @@ import { ServiceWorkerRegistrar } from "@/components/providers/service-worker-re
 import { SkipLink } from "@/components/layout/skip-link"
 import { SiteHeader } from "@/components/layout/site-header"
 import { SiteFooter } from "@/components/layout/site-footer"
+import { MobileBottomNav } from "@/components/layout/mobile-bottom-nav"
 import { CommandMenu } from "@/components/layout/command-menu"
 import { PageTransition } from "@/components/layout/page-transition"
 import { Toaster } from "@/components/ui/sonner"
@@ -94,12 +95,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Providers>
           <SkipLink />
           <SiteHeader />
-          <main id="main" className="flex flex-1 flex-col">
+          <main id="main" className="flex flex-1 flex-col pb-16 md:pb-0">
             <PageTransition>{children}</PageTransition>
           </main>
           <SiteFooter />
+          <MobileBottomNav />
           <CommandMenu />
-          <Toaster richColors position="bottom-right" />
+          <Toaster richColors position="bottom-right" offset="5rem" />
           <ServiceWorkerRegistrar />
         </Providers>
       </body>

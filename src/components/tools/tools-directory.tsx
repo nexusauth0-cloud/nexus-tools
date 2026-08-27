@@ -2,12 +2,13 @@
 
 import * as React from "react"
 import { AnimatePresence, motion } from "framer-motion"
-import { Search, SearchX } from "lucide-react"
+import { ArrowRight, Search, SearchX, Star } from "lucide-react"
 import type { ToolSort } from "@/lib/platform"
 import { getCategories, searchTools, toolCount } from "@/lib/platform"
 import { trackToolSearch } from "@/lib/analytics"
 import type { ToolManifest } from "@/shared/manifest"
 import { ToolCard } from "@/components/design-system/tool-card"
+import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { useFavoritesStore } from "@/store/favorites-store"
 import { RecentlyUsed } from "./recently-used"
@@ -120,15 +121,41 @@ export function ToolsDirectory() {
       </p>
 
       {filtered.length === 0 ? (
-        <div className="flex flex-col items-center gap-3 rounded-2xl border border-dashed border-border bg-card/40 px-6 py-16 text-center">
-          <SearchX className="size-8 text-muted-foreground" aria-hidden="true" />
-          <div className="flex flex-col gap-1">
-            <h3 className="text-base font-semibold text-foreground">No tools found</h3>
-            <p className="text-sm text-muted-foreground">
-              Try a different keyword, category, or clear your filters.
-            </p>
+        favoritesOnly ? (
+          <div className="flex flex-col items-center gap-3 rounded-2xl border border-dashed border-border bg-card/40 px-6 py-16 text-center">
+            <Star className="size-8 text-muted-foreground" aria-hidden="true" />
+            <div className="flex flex-col gap-1">
+              <h3 className="text-base font-semibold text-foreground">No favorite tools yet</h3>
+              <p className="text-sm text-muted-foreground">
+                Star a tool to keep it here for quick access. Browse the catalog to discover
+                tools worth saving.
+              </p>
+            </div>
+            <Button
+              variant="outline"
+              size="sm"
+              className="mt-1"
+              onClick={() => {
+                setFavoritesOnly(false)
+                setQuery("")
+                setCategory("all")
+              }}
+            >
+              Browse all tools
+              <ArrowRight className="size-3.5" aria-hidden="true" />
+            </Button>
           </div>
-        </div>
+        ) : (
+          <div className="flex flex-col items-center gap-3 rounded-2xl border border-dashed border-border bg-card/40 px-6 py-16 text-center">
+            <SearchX className="size-8 text-muted-foreground" aria-hidden="true" />
+            <div className="flex flex-col gap-1">
+              <h3 className="text-base font-semibold text-foreground">No tools found</h3>
+              <p className="text-sm text-muted-foreground">
+                Try a different keyword, category, or clear your filters.
+              </p>
+            </div>
+          </div>
+        )
       ) : (
         <motion.div layout className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           <AnimatePresence mode="popLayout" initial={false}>
