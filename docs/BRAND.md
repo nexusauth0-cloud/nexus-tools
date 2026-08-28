@@ -3,15 +3,15 @@
 > One honest brand. Two independent products. Zero artificial architecture.
 
 This document defines the **shared Nexus brand identity** that both products
-implement independently. It is a *conceptual* token system — the definitions
+implement independently. It is a _conceptual_ token system — the definitions
 below live inside each repository and are kept in sync by convention, not by a
 shared package or monorepo.
 
 **Products covered**
 
-| Product | Repo | Role |
-| --- | --- | --- |
-| NEXUS Tools | `nexusauth0-cloud/nexus-tools` | Web / PWA utility platform |
+| Product      | Repo                            | Role                                    |
+| ------------ | ------------------------------- | --------------------------------------- |
+| NEXUS Tools  | `nexusauth0-cloud/nexus-tools`  | Web / PWA utility platform              |
 | NEXUS Mobile | `nexusauth0-cloud/nexus-mobile` | Desktop / Android device control center |
 
 The two products are technically independent. They are related by **brand
@@ -33,8 +33,8 @@ crypto or "generative-AI startup" clichés, and copying recognizable brands
 **Voice principles**
 
 - State what the product does. Do not inflate.
-- Prefer plain, precise language: *tools, control, utility, engineering,
-  privacy, efficiency, precision*.
+- Prefer plain, precise language: _tools, control, utility, engineering,
+  privacy, efficiency, precision_.
 - Do not use "revolutionary", "world-class", "next-generation",
   "AI-powered everything", or "at any scale" unless genuinely supported.
 - Never advertise fictional or aspirational features.
@@ -66,13 +66,13 @@ needed to disambiguate the product (e.g. "NEXUS Tools" vs "NEXUS Mobile").
 
 Examples (per product, same philosophy, own tokens):
 
-| Token | NEXUS Tools (oklch) | NEXUS Mobile (hsl) |
-| --- | --- | --- |
-| Background | `oklch(0.145 0.005 285)` | `0 0% 3.5%` |
-| Surface / card | `oklch(0.17–0.205 …)` | `0 0% 6.5%` |
-| Border | `oklch(0.28 0.008 285)` | `0 0% 14%` |
-| Foreground | `oklch(0.97 0.004 85)` | `0 0% 96%` |
-| Muted fg | `oklch(0.68 0.01 285)` | `0 0% 62%` |
+| Token          | NEXUS Tools (oklch)      | NEXUS Mobile (hsl) |
+| -------------- | ------------------------ | ------------------ |
+| Background     | `oklch(0.145 0.005 285)` | `0 0% 3.5%`        |
+| Surface / card | `oklch(0.17–0.205 …)`    | `0 0% 6.5%`        |
+| Border         | `oklch(0.28 0.008 285)`  | `0 0% 14%`         |
+| Foreground     | `oklch(0.97 0.004 85)`   | `0 0% 96%`         |
+| Muted fg       | `oklch(0.68 0.01 285)`   | `0 0% 62%`         |
 
 **Brand accent — gold.**
 
@@ -92,7 +92,7 @@ products — the gold stays shared, the complementary palette stays product-loca
 
 ## 4. Typography
 
-A single *principle*, not a single family across platforms:
+A single _principle_, not a single family across platforms:
 
 - **UI / sans:** geometric, technical sans (NEXUS Tools: Geist Sans; NEXUS
   Mobile: Inter).
@@ -146,8 +146,8 @@ and deliberately does **not** claim the products are integrated.
 
 **Product taglines**
 
-- NEXUS Tools — *Fast, private, offline-capable online tools. No accounts.*
-- NEXUS Mobile — *Android device control center for desktop.*
+- NEXUS Tools — _Fast, private, offline-capable online tools. No accounts._
+- NEXUS Mobile — _Android device control center for desktop._
 
 ---
 
