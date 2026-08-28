@@ -2,8 +2,7 @@
 
 import { useEffect, useState } from "react"
 import { usePathname } from "next/navigation"
-import { toast } from "sonner"
-import { ArrowRight, Menu } from "lucide-react"
+import { Menu } from "lucide-react"
 import { cn } from "@/lib"
 import { Logo } from "@/components/design-system/logo"
 import { DesktopNav } from "./desktop-nav"
@@ -30,12 +29,6 @@ export function SiteHeader() {
     setMobileOpen(false)
   }
 
-  const handleSignIn = () => {
-    toast.info("Sign-in is coming in the next milestone.", {
-      description: "NEXUS Tools accounts are right around the corner.",
-    })
-  }
-
   return (
     <header
       className={cn(
@@ -52,10 +45,6 @@ export function SiteHeader() {
         <div className="flex items-center gap-1.5">
           <SearchTrigger />
           <ThemeToggle />
-          <Button type="button" size="sm" className="hidden md:inline-flex" onClick={handleSignIn}>
-            Sign in
-            <ArrowRight className="size-3.5" aria-hidden="true" />
-          </Button>
           <Button
             type="button"
             variant="outline"

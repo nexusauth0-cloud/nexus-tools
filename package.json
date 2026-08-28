@@ -2,6 +2,12 @@
   "name": "nexus-tools",
   "version": "0.1.0",
   "private": true,
+  "description": "NEXUS Tools — a fast, private, offline-capable suite of browser-based utility tools.",
+  "author": "NEXUS",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nexusauth0-cloud/nexus-tools.git"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build --webpack",

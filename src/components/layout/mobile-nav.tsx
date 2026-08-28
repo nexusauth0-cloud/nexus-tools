@@ -2,7 +2,6 @@
 
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { toast } from "sonner"
 import { ArrowRight, ChevronDown } from "lucide-react"
 import { cn } from "@/lib"
 import { Logo } from "@/components/design-system/logo"
@@ -15,7 +14,6 @@ import {
   SheetTrigger,
   SheetDescription,
 } from "@/components/ui/sheet"
-import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
 import { getNavCategories } from "@/lib/platform"
 import { resolveIcon } from "@/lib/icons"
@@ -30,13 +28,6 @@ export function MobileNav({ open, onOpenChange }: MobileNavProps) {
   const categoryFlyout = getNavCategories(6)
 
   const isActive = (href: string) => (href === "/" ? pathname === "/" : pathname.startsWith(href))
-
-  const handleSignIn = () => {
-    onOpenChange(false)
-    toast.info("Sign-in is coming in the next milestone.", {
-      description: "NEXUS Tools accounts are right around the corner.",
-    })
-  }
 
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
@@ -109,13 +100,6 @@ export function MobileNav({ open, onOpenChange }: MobileNavProps) {
               )
             })}
           </nav>
-        </div>
-
-        <div className="border-t border-border p-4">
-          <Button className="w-full" size="lg" onClick={handleSignIn}>
-            Sign in
-            <ArrowRight className="size-4" aria-hidden="true" />
-          </Button>
         </div>
       </SheetContent>
     </Sheet>
