@@ -5,7 +5,7 @@ import { ToolsDirectory } from "@/components/tools/tools-directory"
 export const metadata = createMetadata({
   title: "All Tools",
   description:
-    "Browse the complete NEXUS Tools catalog — 300+ fast, private utilities for image, text, code, media, and more.",
+    "Browse the complete NEXUS Tools catalog — 55 fast, private tools for image, text, code, media, and more.",
   path: "/tools",
 })
 

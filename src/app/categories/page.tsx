@@ -18,7 +18,7 @@ export default function CategoriesPage() {
     <div className="container-site flex flex-col gap-12 py-16 sm:py-24">
       <PageHeader
         eyebrow="Browse"
-        title="Twelve categories, zero clutter"
+        title="Thirteen categories, zero clutter"
         description="Every tool is filed under a category that actually matches how you work."
       />
       <Stagger className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">

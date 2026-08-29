@@ -1,40 +1,34 @@
 import Link from "next/link"
-import { ArrowRight, ShieldCheck, Sparkles, Wallet } from "lucide-react"
+import { ArrowRight, Cpu, FlaskConical, ShieldCheck } from "lucide-react"
 import { createMetadata } from "@/lib"
 import { PageHeader } from "@/components/design-system/page-header"
 import { PricingGrid } from "@/components/design-system/pricing-grid"
 import { Reveal, Stagger, StaggerItem } from "@/components/design-system/motion"
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion"
 import { Button } from "@/components/ui/button"
-import { faqs } from "@/data/faqs"
 
 export const metadata = createMetadata({
   title: "Pricing",
   description:
-    "Free forever tools, plus Pro and Team plans with unlimited sizes, batch processing, and priority support.",
+    "NEXUS Tools is free, forever. Every tool runs in your browser — no accounts, no uploads, no paid plans.",
   path: "/pricing",
 })
 
-const guarantees = [
+const facts = [
   {
-    icon: Wallet,
-    title: "30-day guarantee",
-    description: "Not happy? One-click refund, no questions asked.",
+    icon: Cpu,
+    title: "Runs in your browser",
+    description: "Every tool processes locally on your device. There are no servers to pay for.",
   },
   {
     icon: ShieldCheck,
-    title: "No lock-in",
-    description: "Downgrade or cancel anytime, keep your exports forever.",
+    title: "No uploads, no accounts",
+    description: "Nothing you work on is sent anywhere. No sign-up, no login, no profile.",
   },
   {
-    icon: Sparkles,
-    title: "Every plan private",
-    description: "Your files stay on-device at every tier. Always.",
+    icon: FlaskConical,
+    title: "New tools, clearly marked",
+    description:
+      "Upcoming tools show as public previews until they ship — we never hide what's live.",
   },
 ]
 
@@ -43,14 +37,14 @@ export default function PricingPage() {
     <div className="container-site flex flex-col gap-16 py-16 sm:py-24">
       <PageHeader
         eyebrow="Pricing"
-        title="Start free. Scale when ready."
-        description="One simple upgrade path — every plan includes the full private-by-design promise."
+        title="Free, forever."
+        description="All 55 tools are yours at no cost — and always will be. No paid tiers, no trials, no lock-in."
       />
 
       <PricingGrid />
 
       <Stagger className="grid gap-4 sm:grid-cols-3">
-        {guarantees.map(({ icon: Icon, title, description }) => (
+        {facts.map(({ icon: Icon, title, description }) => (
           <StaggerItem key={title}>
             <div className="flex h-full flex-col gap-3 rounded-2xl border border-border bg-card p-6 shadow-card">
               <div className="flex size-10 items-center justify-center rounded-xl border border-primary/20 bg-primary/10">
@@ -63,28 +57,10 @@ export default function PricingPage() {
         ))}
       </Stagger>
 
-      <Reveal className="flex flex-col gap-6">
-        <h2 className="text-center text-2xl font-semibold tracking-tight text-foreground">
-          Billing questions, answered
-        </h2>
-        <div className="mx-auto w-full max-w-2xl">
-          <Accordion type="single" collapsible>
-            {faqs
-              .filter((faq) => faq.id === "free-vs-pro" || faq.id === "cancel")
-              .map((faq) => (
-                <AccordionItem key={faq.id} value={faq.id}>
-                  <AccordionTrigger>{faq.question}</AccordionTrigger>
-                  <AccordionContent>{faq.answer}</AccordionContent>
-                </AccordionItem>
-              ))}
-          </Accordion>
-        </div>
-      </Reveal>
-
       <Reveal className="flex justify-center">
         <Button variant="outline" size="lg" asChild>
-          <Link href="/contact">
-            Talk to a human about Team plans
+          <Link href="/tools">
+            Browse all 55 tools
             <ArrowRight className="size-4" aria-hidden="true" />
           </Link>
         </Button>

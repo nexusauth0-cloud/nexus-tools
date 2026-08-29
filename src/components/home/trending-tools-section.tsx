@@ -4,7 +4,6 @@ import { getTrendingTools } from "@/lib/platform"
 import { SectionHeading } from "@/components/design-system/section-heading"
 import { ToolCard } from "@/components/design-system/tool-card"
 import { Stagger, Reveal } from "@/components/design-system/motion"
-import { Badge } from "@/components/ui/badge"
 
 export function TrendingToolsSection() {
   return (
@@ -19,17 +18,17 @@ export function TrendingToolsSection() {
             eyebrow={
               <span className="inline-flex items-center gap-1.5">
                 <Flame className="size-4" aria-hidden="true" />
-                Trending now
+                Popular right now
               </span>
             }
-            title="What everyone is opening"
-            description="Real growth, ranked by month-over-month usage across the catalog."
+            title="Tools people reach for most"
+            description="A hand-picked selection of the catalog — every one live, private, and free. No inflated numbers, just the essentials."
           />
         </Reveal>
 
         <Stagger className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {getTrendingTools().map((tool, index) => (
-            <ToolCard key={tool.slug} tool={tool} rank={index + 1} showRank />
+          {getTrendingTools().map((tool) => (
+            <ToolCard key={tool.slug} tool={tool} />
           ))}
         </Stagger>
 
@@ -38,10 +37,7 @@ export function TrendingToolsSection() {
             href="/tools"
             className="inline-flex items-center gap-1.5 text-sm font-medium text-gold transition-colors hover:underline"
           >
-            <Badge variant="gold" className="mr-1">
-              +128.4%
-            </Badge>
-            average growth this month
+            See all 55 tools
             <ArrowRight className="size-3.5" aria-hidden="true" />
           </Link>
         </Reveal>

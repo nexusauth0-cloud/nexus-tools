@@ -56,7 +56,7 @@ export function DesktopNav() {
           <DropdownMenuSeparator />
           <DropdownMenuItem asChild>
             <Link href="/tools" className="justify-center font-medium text-gold">
-              View all 300+ tools
+              View all 55 tools
             </Link>
           </DropdownMenuItem>
         </DropdownMenuContent>

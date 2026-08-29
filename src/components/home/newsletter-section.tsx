@@ -70,8 +70,7 @@ export function NewsletterSection() {
                   New tools, every week
                 </h2>
                 <p className="text-pretty text-base leading-relaxed text-muted-foreground">
-                  Join 40,000+ makers getting one practical tool, field note, and workflow tip each
-                  week. No spam, ever.
+                  Get one practical tool, a field note, and a workflow tip each week. No spam, ever.
                 </p>
               </div>
 

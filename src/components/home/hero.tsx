@@ -39,7 +39,7 @@ export function Hero() {
                 <span className="absolute inline-flex size-full animate-ping rounded-full bg-gold opacity-60" />
                 <span className="relative inline-flex size-1.5 rounded-full bg-gold" />
               </span>
-              300+ tools now live
+              55 tools, always free
             </span>
             <ArrowRight
               className="size-3.5 transition-transform duration-300 group-hover:translate-x-0.5"
@@ -54,7 +54,7 @@ export function Hero() {
               <span className="text-gradient-gold">crafted for speed.</span>
             </h1>
             <p className="mx-auto max-w-xl text-pretty text-base leading-relaxed text-muted-foreground sm:text-lg">
-              One search bar for 300+ fast, private utilities — image, text, code, and beyond. No
+              One search bar for 55 fast, private tools — image, text, code, and beyond. No
               accounts, no uploads, no friction.
             </p>
           </div>

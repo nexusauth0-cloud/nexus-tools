@@ -28,16 +28,15 @@ const sections = [
     ],
   },
   {
-    heading: "Subscriptions",
+    heading: "Pricing",
     body: [
-      "Free features are free forever. Paid plans bill at the start of each period and can be cancelled at any time — access continues until the end of the paid period.",
-      "If you're entitled to a refund, we'll process it to your original payment method within 10 business days.",
+      "NEXUS Tools is free, forever. There are no paid plans, subscriptions, or trial periods. Every tool is available to everyone at no cost.",
     ],
   },
   {
     heading: "Acceptable reliability",
     body: [
-      "We aim for 99.9% uptime but provide the service on an 'as available' basis. We're not liable for indirect damages, lost data, or business interruption beyond applicable law.",
+      "Tools run locally in your browser and depend on your device and connection. We provide the service on an 'as available' basis and aren't liable for indirect damages, lost data, or interruptions beyond applicable law.",
     ],
   },
   {

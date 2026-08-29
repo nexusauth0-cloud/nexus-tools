@@ -11,24 +11,24 @@ export interface StaticPage {
 export const staticPages: StaticPage[] = [
   {
     title: "All Tools",
-    description: "Browse the full catalog of 300+ utilities.",
+    description: "Browse the full catalog of 55 tools.",
     href: "/tools",
     icon: "Layers",
     keywords: ["directory", "browse", "all"],
   },
   {
     title: "Categories",
-    description: "Explore tools grouped into 12 curated categories.",
+    description: "Explore tools grouped into 13 curated categories.",
     href: "/categories",
     icon: "Layers",
     keywords: ["browse", "list", "groups"],
   },
   {
     title: "Pricing",
-    description: "Simple plans that scale with your workflow.",
+    description: "Free, forever. Every tool in your browser, no accounts.",
     href: "/pricing",
     icon: "Rocket",
-    keywords: ["plans", "pro", "team", "free"],
+    keywords: ["free", "no-cost", "plans"],
   },
   {
     title: "Blog",

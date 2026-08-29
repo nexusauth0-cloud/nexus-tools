@@ -7,8 +7,8 @@ export function PricingPreviewSection() {
       <div className="flex flex-col gap-10">
         <SectionHeading
           eyebrow="Pricing"
-          title="Simple pricing, no surprises"
-          description="Start free, upgrade when your workflow demands more firepower."
+          title="Free, forever."
+          description="All 55 tools run directly in your browser — no accounts, no uploads, no paid plans."
         />
         <PricingGrid />
       </div>

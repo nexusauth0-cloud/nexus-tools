@@ -1,47 +1,43 @@
-import { Clock, Sparkles, TrendingUp, Users, type LucideIcon } from "lucide-react"
+import { Cpu, FlaskConical, Sparkles, UserX, type LucideIcon } from "lucide-react"
 import type { Statistic, StatisticCardData } from "@/shared"
 
 export const statistics: Statistic[] = [
   {
     id: "tools",
     label: "Curated tools",
-    value: 300,
-    suffix: "+",
-    description: "Production-ready utilities, growing every week.",
+    value: 55,
+    description: "Across image, text, code, converters, documents and more.",
     icon: Sparkles,
   },
   {
-    id: "runs",
-    label: "Tasks completed",
-    value: 148,
-    suffix: "M",
-    description: "Processed entirely inside your browser.",
-    icon: TrendingUp,
-  },
-  {
-    id: "privacy",
-    label: "Zero uploads",
+    id: "local",
+    label: "Runs in your browser",
     value: 100,
     suffix: "%",
-    description: "Your data never leaves your device.",
-    icon: Users,
+    description: "Every tool processes locally on your device. No server, no queue.",
+    icon: Cpu,
   },
   {
-    id: "uptime",
-    label: "Uptime",
-    value: 99.99,
-    suffix: "%",
-    decimals: 2,
-    description: "Measured across every public tool.",
-    icon: Clock,
+    id: "accounts",
+    label: "Accounts to create",
+    value: 0,
+    description: "No sign-up, no login, no profile. Just open a tool and go.",
+    icon: UserX,
+  },
+  {
+    id: "previews",
+    label: "Tools in public preview",
+    value: 16,
+    description: "Cataloged and on the release board, marked clearly as in the lab.",
+    icon: FlaskConical,
   },
 ]
 
 export const statsOverrides: Record<string, LucideIcon> = {
   tools: Sparkles,
-  runs: TrendingUp,
-  privacy: Users,
-  uptime: Clock,
+  local: Cpu,
+  accounts: UserX,
+  previews: FlaskConical,
 }
 
 export function toStatisticCardData(statistic: Statistic): StatisticCardData {

@@ -29,7 +29,7 @@ export function SearchTrigger({ variant = "header", className }: SearchTriggerPr
       >
         <Search className="size-5 shrink-0 text-gold" aria-hidden="true" />
         <span className="flex-1 truncate text-[15px] text-muted-foreground">
-          Search 300+ tools, categories, and guides…
+          Search 55 tools, categories, and guides…
         </span>
         <span className="hidden items-center gap-1 sm:flex">
           <Kbd>⌘</Kbd>

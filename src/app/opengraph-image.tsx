@@ -115,7 +115,7 @@ export default function OpengraphImage() {
             color: "#9d9da3",
           }}
         >
-          300+ fast, private utilities. No uploads, no accounts, no friction.
+          55 fast, private tools. No uploads, no accounts, no friction.
         </div>
       </div>
 

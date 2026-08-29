@@ -9,8 +9,8 @@ export function StatisticsSection() {
       <div className="flex flex-col gap-10">
         <SectionHeading
           eyebrow="By the numbers"
-          title="A platform you can measure"
-          description="Every metric is earned the honest way — counted from real, in-browser usage."
+          title="A platform you can verify"
+          description="Honest, product facts. Every tool runs locally in your browser — nothing is uploaded, ever."
         />
         <Stagger className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {statistics.map((statistic) => (

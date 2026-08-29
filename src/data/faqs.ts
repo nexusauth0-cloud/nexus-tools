@@ -14,22 +14,22 @@ export const faqs: Faq[] = [
       "Yes. Once the app is loaded, most tools run fully offline. Install NEXUS as a PWA from your browser and the core suite keeps working with no connection at all.",
   },
   {
-    id: "free-vs-pro",
-    question: "What's the difference between Free and Pro?",
+    id: "free-forever",
+    question: "Is NEXUS Tools really free?",
     answer:
-      "Free includes the core suite of 120+ tools with standard limits, always. Pro unlocks the full 300+ catalog — including AI features, unlimited file sizes, batch processing, and priority queueing.",
+      "Yes — every tool is free, forever. There are no paid plans, trials, or subscriptions, and no account is required. You can verify there's no upgrade path hinted anywhere in the app.",
   },
   {
     id: "limits",
     question: "Are there limits on file sizes?",
     answer:
-      "Free plans cap file sizes to keep the browser environment snappy. Pro lifts those limits entirely, and Team plans add high-volume, parallel processing for heavier workloads.",
+      "Tools that handle files process them locally in your browser, so the practical limit is your device's memory. We don't impose usage caps or file-size quotas anywhere.",
   },
   {
-    id: "cancel",
-    question: "Can I cancel my subscription anytime?",
+    id: "previews",
+    question: "Why do some tools say 'In the lab'?",
     answer:
-      "Absolutely. You can downgrade or cancel with one click from your account settings, no emails or phone calls required. On yearly plans you keep access until the end of your billing period.",
+      "A few tools are cataloged and on the release board but not live yet. We mark them clearly as public previews with no fabricated usage or ratings, and you can favorite them to know when they ship.",
   },
   {
     id: "browser",

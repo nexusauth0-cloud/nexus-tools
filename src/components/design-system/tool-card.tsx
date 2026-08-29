@@ -1,9 +1,9 @@
 "use client"
 
 import Link from "next/link"
-import { ArrowRight, Star, TrendingDown, TrendingUp, Users } from "lucide-react"
+import { ArrowRight, FlaskConical, Star, Users } from "lucide-react"
 import { motion } from "framer-motion"
-import { cn, formatUsage, formatTrend } from "@/lib"
+import { cn, formatUsage } from "@/lib"
 import type { ToolManifest } from "@/shared/manifest"
 import { resolveIcon } from "@/lib/icons"
 import { getCategoryMeta } from "@/data/category-meta"
@@ -108,35 +108,22 @@ export function ToolCard({ tool, className, rank, showRank = false }: ToolCardPr
         <div className="flex items-center justify-between gap-3 border-t border-border pt-3.5">
           <div className="flex items-center gap-2">
             <ToolStatusBadge tier={tool.tier} />
-            {tool.trend === "up" && (
-              <span
-                className={cn(
-                  "inline-flex items-center gap-0.5 text-[11px] font-medium tabular-nums text-success"
-                )}
-              >
-                <TrendingUp className="size-3" aria-hidden="true" />
-                {formatTrend(tool.trendValue)}
-              </span>
-            )}
-            {tool.trend === "down" && (
-              <span
-                className={cn(
-                  "inline-flex items-center gap-0.5 text-[11px] font-medium tabular-nums text-destructive"
-                )}
-              >
-                <TrendingDown className="size-3" aria-hidden="true" />
-                {formatTrend(tool.trendValue)}
-              </span>
-            )}
           </div>
-          <Rating value={tool.rating} />
+          {tool.usage > 0 && <Rating value={tool.rating} />}
         </div>
 
         <div className="flex items-center justify-between text-xs text-muted-foreground">
-          <span className="inline-flex items-center gap-1.5">
-            <Users className="size-3.5" aria-hidden="true" />
-            <span>{formatUsage(tool.usage)} runs / mo</span>
-          </span>
+          {tool.usage > 0 ? (
+            <span className="inline-flex items-center gap-1.5">
+              <Users className="size-3.5" aria-hidden="true" />
+              <span>{formatUsage(tool.usage)} runs / mo</span>
+            </span>
+          ) : (
+            <span className="inline-flex items-center gap-1.5">
+              <FlaskConical className="size-3.5" aria-hidden="true" />
+              <span>In the lab</span>
+            </span>
+          )}
           <span
             className={cn(
               "inline-flex items-center gap-1 text-gold opacity-0 transition-opacity duration-300 group-hover:opacity-100"

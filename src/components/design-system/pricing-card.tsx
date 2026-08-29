@@ -14,8 +14,9 @@ interface PricingCardProps {
 }
 
 export function PricingCard({ plan, frequency, className }: PricingCardProps) {
+  const isFree = plan.monthlyPrice === 0 && plan.yearlyPrice === 0
   const price = frequency === "monthly" ? plan.monthlyPrice : plan.yearlyPrice
-  const periodLabel = frequency === "monthly" ? "/ month" : "/ year"
+  const periodLabel = isFree ? "/ forever" : frequency === "monthly" ? "/ month" : "/ year"
 
   return (
     <StaggerItem className={cn("h-full", className)}>
@@ -78,7 +79,7 @@ export function PricingCard({ plan, frequency, className }: PricingCardProps) {
             className="w-full"
             asChild
           >
-            <a href={plan.popular ? "/pricing" : "/pricing"}>
+            <a href={isFree ? "/tools" : "/pricing"}>
               {plan.cta}
               <ArrowRight className="size-4" aria-hidden="true" />
             </a>

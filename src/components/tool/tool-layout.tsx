@@ -2,7 +2,7 @@ import Link from "next/link"
 import { CalendarClock, Flag, Users } from "lucide-react"
 import type { ToolManifest } from "@/shared/manifest"
 import { siteConfig } from "@/lib/site"
-import { formatDate, formatTrend, formatUsage } from "@/lib/format"
+import { formatDate, formatUsage } from "@/lib/format"
 import { cn } from "@/lib/utils"
 import { getCategoryMeta } from "@/data/category-meta"
 import { resolveIcon } from "@/lib/icons"
@@ -101,9 +101,6 @@ export function ToolLayout({ manifest, related, children }: ToolLayoutProps) {
               </span>
             )}
             {manifest.rating > 0 && <Rating value={manifest.rating} />}
-            {manifest.trendValue !== 0 && (
-              <span>Trending {formatTrend(manifest.trendValue)} this month</span>
-            )}
             {manifest.supportedBrowsers && manifest.supportedBrowsers.length > 0 && (
               <span className="inline-flex items-center gap-1.5">
                 Runs in {manifest.supportedBrowsers.join(", ")}
