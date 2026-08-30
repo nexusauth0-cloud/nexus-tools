@@ -33,7 +33,7 @@ interface ToolLayoutProps {
 function reportHrefFor(title: string): string {
   const subject = encodeURIComponent(`Report an issue — ${title}`)
   const body = encodeURIComponent(`Tool: ${title}\n\nIssue:\n`)
-  return `${siteConfig.supportEmail}?subject=${subject}&body=${body}`
+  return `mailto:${siteConfig.supportEmail}?subject=${subject}&body=${body}`
 }
 
 /**

@@ -4,9 +4,8 @@ export const siteConfig = {
   legalName: "NEXUS Tools",
   description:
     "A curated suite of fast, private, and beautifully designed online tools for everyday tasks — image, text, developer, video, audio, and more.",
-  url: "https://nexus.tools",
+  url: "https://nexus-tools-delta.vercel.app",
   ogImage: "/opengraph-image",
-  twitterHandle: "@nexustools",
   keywords: [
     "online tools",
     "free tools",
@@ -18,11 +17,10 @@ export const siteConfig = {
     "privacy first",
   ],
   links: {
-    twitter: "https://twitter.com",
-    github: "https://github.com",
-    discord: "https://discord.com",
+    github: "https://github.com/nexusauth0-cloud",
+    tiktok: "https://www.tiktok.com/@nexusauth0",
   },
-  supportEmail: "support@nexus.tools",
+  supportEmail: "nexusauth0@gmail.com",
   version: "1.0.0",
 } as const
 

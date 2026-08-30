@@ -48,7 +48,7 @@ const sections = [
   },
   {
     heading: "Contact",
-    body: ["Questions about this policy? Email privacy@nexus.tools and a human will reply."],
+    body: ["Questions about this policy? Email nexusauth0@gmail.com and a human will reply."],
   },
 ]
 

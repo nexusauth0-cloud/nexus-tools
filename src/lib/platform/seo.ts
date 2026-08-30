@@ -1,6 +1,5 @@
 import type { Metadata } from "next"
 import type { ToolManifest } from "@/shared/manifest"
-import { isPremium } from "@/shared/manifest"
 import { siteConfig } from "@/lib/site"
 import { createMetadata } from "@/lib/seo"
 import { getCategoryMeta } from "@/data/category-meta"
@@ -47,7 +46,6 @@ export function buildCategoryMetadata(categoryId: string): Metadata {
 /** JSON-LD structured data (SoftwareApplication) for a tool page. */
 export function buildToolJsonLd(manifest: ToolManifest): object {
   const path = toolPath(manifest.slug)
-  const premium = isPremium(manifest.tier)
 
   return {
     "@context": "https://schema.org",
@@ -62,7 +60,7 @@ export function buildToolJsonLd(manifest: ToolManifest): object {
     author: { "@type": "Organization", name: manifest.author },
     offers: {
       "@type": "Offer",
-      price: premium ? "4.99" : "0",
+      price: "0",
       priceCurrency: "USD",
     },
   }

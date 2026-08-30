@@ -17,7 +17,7 @@ const values = [
   },
   {
     title: "Craft over sprawl",
-    body: "We'd rather ship 300 tools done beautifully than 3,000 done badly. Every utility earns its place with real design rigor.",
+    body: "We'd rather ship 55 tools done beautifully than 3,000 done badly. Every utility earns its place with real design rigor.",
   },
   {
     title: "Speed is a feature",

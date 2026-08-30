@@ -11,11 +11,6 @@ describe("SEO JSON-LD", () => {
     expect((jsonLd.offers as { price: string }).price).toBe("0")
   })
 
-  it("marks premium tools with a paid offer", () => {
-    const jsonLd = buildToolJsonLd(makeTool({ slug: "text-summarizer", tier: "pro" })) as JsonLd
-    expect((jsonLd.offers as { price: string }).price).toBe("4.99")
-  })
-
   it("builds a BreadcrumbList JSON-LD document", () => {
     const jsonLd = buildToolBreadcrumbJsonLd(makeTool({ slug: "image-compressor" })) as JsonLd
     expect(jsonLd["@type"]).toBe("BreadcrumbList")

@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next"
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "NEXUS Tools - Premium Online Tools Suite",
+    name: "NEXUS Tools - Free Online Tools Suite",
     short_name: "NEXUS",
     description:
       "A curated suite of fast, private, and beautifully designed online tools for everyday tasks.",

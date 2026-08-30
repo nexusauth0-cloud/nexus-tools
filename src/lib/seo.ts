@@ -42,8 +42,6 @@ export function createMetadata({
     },
     twitter: {
       card: "summary_large_image",
-      site: siteConfig.twitterHandle,
-      creator: siteConfig.twitterHandle,
       title: title ? `${title} · ${siteConfig.name}` : siteConfig.name,
       description,
     },

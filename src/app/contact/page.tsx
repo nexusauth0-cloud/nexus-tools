@@ -3,8 +3,7 @@
 import * as React from "react"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
-import { Mail, MapPin, MessageSquare, Send, Timer } from "lucide-react"
-import { toast } from "sonner"
+import { Mail, Send } from "lucide-react"
 import { z } from "zod"
 import { siteConfig } from "@/lib"
 import { PageHeader } from "@/components/design-system/page-header"
@@ -32,7 +31,7 @@ import {
 const contactSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters.").max(80, "Name is too long."),
   email: z.string().min(1, "Email is required.").email("Enter a valid email address."),
-  topic: z.enum(["support", "sales", "feedback", "press"], {
+  topic: z.enum(["support", "feedback", "report", "other"], {
     message: "Choose a topic.",
   }),
   message: z
@@ -54,47 +53,37 @@ const DEFAULT_VALUES: ContactValues = {
 
 const topics = [
   { value: "support", label: "Product support" },
-  { value: "sales", label: "Sales & Team plans" },
   { value: "feedback", label: "Feedback & ideas" },
-  { value: "press", label: "Press & partnerships" },
+  { value: "report", label: "Report a problem" },
+  { value: "other", label: "Something else" },
 ]
 
 const channels = [
   {
-    icon: MessageSquare,
-    title: "Best for quick answers",
-    body: "Community discussions are answered within a day.",
+    icon: Mail,
+    title: "Direct email",
+    body: "Write to us — every message goes to a real inbox, read by a human.",
   },
   {
-    icon: Timer,
-    title: "Response time",
-    body: "Support tickets are answered within 24 hours, weekdays.",
-  },
-  {
-    icon: MapPin,
-    title: "HQ",
-    body: "Remote-first, spanning 12 time zones.",
+    icon: Send,
+    title: "Reply time",
+    body: "We aim to reply within a few days. There is no ticket queue or support team just yet.",
   },
 ]
 
 export default function ContactPage() {
-  const [isPending, setIsPending] = React.useState(false)
-
   const form = useForm<ContactValues>({
     resolver: zodResolver(contactSchema),
     defaultValues: DEFAULT_VALUES,
   })
 
-  const onSubmit = async (values: ContactValues) => {
+  const onSubmit = (values: ContactValues) => {
     if (values.website) return
 
-    setIsPending(true)
-    await new Promise((resolve) => setTimeout(resolve, 900))
-    setIsPending(false)
-
-    toast.success("Message sent.", {
-      description: `Thanks, ${values.name.split(" ")[0] ?? "friend"} — we'll reply within 24 hours.`,
-    })
+    const subject = `[${topics.find((t) => t.value === values.topic)?.label ?? "Contact"}] Message from ${values.name}`
+    const body = `${values.message}\n\n—\n${values.name}\n${values.email}`
+    const mailto = `mailto:${siteConfig.supportEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
+    window.open(mailto, "_self", "noopener")
     form.reset(DEFAULT_VALUES)
   }
 
@@ -103,7 +92,7 @@ export default function ContactPage() {
       <PageHeader
         eyebrow="Contact"
         title="Talk to a human"
-        description="Questions, feedback, or a team plan that needs a custom fit — we read everything."
+        description="Questions, feedback, or a bug — we read everything. Your message opens your email draft, ready to send."
       />
 
       <div className="grid gap-10 lg:grid-cols-[1fr_1.4fr] lg:gap-16">
@@ -232,9 +221,9 @@ export default function ContactPage() {
                   )}
                 />
 
-                <Button type="submit" size="lg" disabled={isPending} className="self-start">
-                  {isPending ? "Sending…" : "Send message"}
-                  {!isPending && <Send className="size-4" aria-hidden="true" />}
+                <Button type="submit" size="lg" className="self-start">
+                  Open email draft
+                  <Send className="size-4" aria-hidden="true" />
                 </Button>
               </form>
             </Form>
